@@ -2,6 +2,7 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Icon, type IconName } from "../components/Icon";
 import { LeadForm } from "../components/LeadForm";
+import { PlanBuilder } from "../components/PlanBuilder";
 
 const migrationFaqs = [
   ["O Invio é afiliado à Nuvem Fiscal?", "Não. O Invio não possui afiliação com a Nuvem Fiscal. A marca é mencionada exclusivamente para contextualizar a migração entre soluções."],
@@ -36,7 +37,7 @@ export function MigrationPage() {
               <h1>Saindo da Nuvem Fiscal? Planeje sua migração de NFS-e com o <em>Invio.</em></h1>
               <p className="hero-subtitle">Migração assistida para SaaS, ERPs e plataformas que precisam manter emitentes, integrações e fluxos de faturamento funcionando.</p>
               <div className="hero-actions">
-                <a className="button button-primary" href="#contato">Receber plano de migração <Icon name="arrow" size={17} /></a>
+                <a className="button button-primary" href="#montar-plano">Montar plano de migração <Icon name="arrow" size={17} /></a>
                 <a className="button button-secondary" href="#processo">Ver como funciona</a>
               </div>
               <p className="hero-note"><Icon name="shield" size={15} /> Diagnóstico antes da proposta. Nenhuma troca acontece automaticamente.</p>
@@ -97,7 +98,7 @@ export function MigrationPage() {
               <p className="eyebrow eyebrow-light">Processo de migração</p>
               <h2>Decisões técnicas antes da virada.</h2>
               <p>Cada etapa reduz uma incerteza da troca. O cronograma é definido depois de entender a integração — sem promessa de prazo genérico.</p>
-              <a className="button button-light" href="#contato">Avaliar minha migração <Icon name="arrow" size={16} /></a>
+              <a className="button button-light" href="#montar-plano">Avaliar minha migração <Icon name="arrow" size={16} /></a>
             </div>
             <ol className="process-timeline">
               {[
@@ -116,26 +117,14 @@ export function MigrationPage() {
           </div>
         </section>
 
-        <section className="section migration-offer-section">
-          <div className="container migration-offer-card">
-            <div>
-              <p className="eyebrow">Condição de migração</p>
-              <h2>Condições especiais para empresas em migração.</h2>
-              <p>O programa considera o volume atual, a quantidade de CNPJs e a complexidade da integração para oferecer uma condição comercial adequada à operação.</p>
-              <a className="button button-primary" href="#contato">Calcular minha condição <Icon name="arrow" size={16} /></a>
+        <section className="section migration-offer-section" id="montar-plano">
+          <div className="container">
+            <div className="section-heading centered-heading plan-heading">
+              <p className="eyebrow">Plano especial de migração</p>
+              <h2>Monte uma recomendação para <em>a sua virada.</em></h2>
+              <p>O escopo considera sua integração atual, CNPJs, volume e janela de migração.</p>
             </div>
-            <div className="offer-includes">
-              <span>O programa pode incluir</span>
-              {[
-                ["Diagnóstico técnico", "Inventário do fluxo existente"],
-                ["Homologação", "Validação antes da produção"],
-                ["Migração assistida", "Plano adequado à integração"],
-                ["Entrada em produção", "Acompanhamento da virada"],
-                ["Condição comercial", "Baseada na operação atual"],
-              ].map(([title, text]) => (
-                <div key={title}><Icon name="check" size={16} /><p><strong>{title}</strong><small>{text}</small></p></div>
-              ))}
-            </div>
+            <PlanBuilder mode="migration" />
           </div>
         </section>
 

@@ -2,6 +2,7 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Icon, type IconName } from "../components/Icon";
 import { LeadForm } from "../components/LeadForm";
+import { PlanBuilder } from "../components/PlanBuilder";
 
 const capabilities: Array<{ icon: IconName; title: string; text: string }> = [
   { icon: "code", title: "API de emissão", text: "Uma integração para criar e consultar emissões de NFS-e." },
@@ -54,7 +55,7 @@ export function HomePage() {
               <h1>Integre uma vez. Emita e monitore <em>NFS-e Nacional</em> em escala.</h1>
               <p className="hero-subtitle">API, webhooks e acompanhamento operacional para SaaS, ERPs e plataformas que precisam emitir notas sem manter uma infraestrutura fiscal própria.</p>
               <div className="hero-actions">
-                <a className="button button-primary" href="#contato">Solicitar acesso <Icon name="arrow" size={17} /></a>
+                <a className="button button-primary" href="#montar-plano">Montar meu plano <Icon name="arrow" size={17} /></a>
                 <a className="button button-secondary" href="#como-funciona">Entender a integração</a>
               </div>
               <div className="hero-facts" aria-label="Capacidades principais">
@@ -270,21 +271,14 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="section commercial-section" id="modelo-comercial">
-          <div className="container commercial-card">
-            <div className="commercial-copy">
-              <p className="eyebrow eyebrow-light">Modelo comercial</p>
-              <h2>Um plano compatível com <em>sua operação.</em></h2>
-              <p>O valor do Invio é calculado de acordo com a quantidade de CNPJs ativos, o volume mensal de NFS-e e o suporte necessário para sua integração.</p>
-              <a className="button button-light" href="#contato">Encontrar meu plano <Icon name="arrow" size={17} /></a>
+        <section className="section commercial-section" id="montar-plano">
+          <div className="container">
+            <div className="section-heading centered-heading plan-heading">
+              <p className="eyebrow">Montador de plano</p>
+              <h2>Descubra qual plano combina com <em>sua operação.</em></h2>
+              <p>Responda quatro perguntas para receber uma recomendação inicial. Sem tabela genérica e sem compromisso.</p>
             </div>
-            <div className="commercial-factors">
-              <span>O que entra na avaliação</span>
-              <div><b>01</b><p><strong>CNPJs ativos</strong>Quantidade de emitentes da operação</p></div>
-              <div><b>02</b><p><strong>Volume mensal</strong>Faixa de emissões de NFS-e</p></div>
-              <div><b>03</b><p><strong>Suporte</strong>Complexidade e acompanhamento necessários</p></div>
-              <small>As condições são apresentadas antes de qualquer contratação.</small>
-            </div>
+            <PlanBuilder />
           </div>
         </section>
 

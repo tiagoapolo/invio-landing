@@ -29,7 +29,7 @@ export function Header({ migration = false }: { migration?: boolean }) {
             <a href={`${prefix}#produto`} onClick={close}>Produto</a>
             <a href={`${prefix}#como-funciona`} onClick={close}>Como funciona</a>
             <a href={`${prefix}#para-quem`} onClick={close}>Para quem</a>
-            <a href={`${prefix}#seguranca`} onClick={close}>Segurança</a>
+            <a href="#montar-plano" onClick={close}>Planos</a>
             <a href="/migrar-da-nuvem-fiscal" onClick={close}>Migração</a>
           </nav>
           <div className="header-actions">

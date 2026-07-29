@@ -14,7 +14,7 @@ export function Footer() {
           <strong>Produto</strong>
           <a href="/#produto">Recursos</a>
           <a href="/#como-funciona">Como funciona</a>
-          <a href="/#modelo-comercial">Modelo comercial</a>
+          <a href="/#montar-plano">Montar meu plano</a>
         </div>
         <div className="footer-column">
           <strong>Para sua operação</strong>
