@@ -43,10 +43,20 @@ test("plan builder recommends standard and migration profiles", async () => {
   assert.match(builder, /name: "Crescimento"/);
   assert.match(builder, /name: "Plataforma"/);
   assert.match(builder, /name: "Alto Volume"/);
+  assert.match(builder, /monthlyPrice: 149/);
+  assert.match(builder, /monthlyPrice: 349/);
+  assert.match(builder, /monthlyPrice: 699/);
+  assert.match(builder, /monthlyPrice: 1199/);
+  assert.match(builder, /monthlyPrice: 2499/);
   assert.match(builder, /Migração Assistida/);
   assert.match(builder, /Condição comercial especial/);
-  assert.match(builder, /Recomendação inicial/);
-  assert.doesNotMatch(builder, /R\$|desconto de|% de desconto/);
+  assert.match(builder, /Estimativa inicial/);
+  assert.match(builder, /Valor estimado para o seu cenário/);
+  assert.match(builder, /name="email"/);
+  assert.match(builder, /name="phone"/);
+  assert.match(builder, /Quero contratar este plano/);
+  assert.match(builder, /leadType: "plan_builder"/);
+  assert.doesNotMatch(builder, /desconto de|% de desconto/);
 });
 
 test("lead form requires persistence before showing success", async () => {
@@ -56,6 +66,7 @@ test("lead form requires persistence before showing success", async () => {
   assert.match(form, /if \(!response\.ok\) throw/);
   assert.match(form, /migracao_nuvem_fiscal/);
   assert.match(form, /homepage/);
+  assert.match(form, /name="phone"/);
   assert.match(form, /Nenhuma contratação acontece automaticamente/);
   assert.match(form, /name="address"/);
   assert.doesNotMatch(form, /console\.(log|error)/);

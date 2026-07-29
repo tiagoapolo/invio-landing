@@ -12,7 +12,7 @@ const migrationFaqs = [
   ["Como configurar os certificados?", "O diagnóstico identifica emitentes e certificados A1. Depois, cada CNPJ é configurado e validado no ambiente de homologação."],
   ["Posso migrar vários CNPJs?", "Sim. O programa considera operações com múltiplos emitentes e dimensiona o plano pela quantidade de CNPJs, volume e complexidade."],
   ["Quanto tempo leva a avaliação?", "O prazo depende da integração existente e da disponibilidade das informações técnicas. O Invio não promete uma duração fixa antes do diagnóstico."],
-  ["Como funciona a condição comercial?", "Ela considera o volume atual, a quantidade de CNPJs e a complexidade da integração. As condições específicas são apresentadas após a avaliação, antes de qualquer contratação."],
+  ["Como funciona a condição comercial?", "O montador mostra uma estimativa mensal baseada no volume, na quantidade de CNPJs e na complexidade da integração. As condições finais são confirmadas antes da contratação."],
 ];
 
 export function MigrationPage() {

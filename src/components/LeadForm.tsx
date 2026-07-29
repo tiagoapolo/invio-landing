@@ -65,6 +65,10 @@ export function LeadForm({ origin }: { origin: LeadOrigin }) {
           <input name="email" type="email" autoComplete="email" required placeholder="voce@empresa.com" />
         </label>
         <label>
+          Telefone / WhatsApp
+          <input name="phone" type="tel" autoComplete="tel" required placeholder="(11) 99999-9999" />
+        </label>
+        <label>
           Empresa
           <input name="company" autoComplete="organization" required placeholder="Nome da empresa" />
         </label>

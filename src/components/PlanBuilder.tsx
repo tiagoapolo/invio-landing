@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Icon, type IconName } from "./Icon";
 
 type PlanBuilderMode = "standard" | "migration";
 type StepKey = "operation" | "cnpjs" | "volume" | "support" | "integration" | "timeline";
+type LeadState = "idle" | "submitting" | "success" | "error";
 
 type Option = {
   value: string;
@@ -90,12 +91,14 @@ const cnpjRank: Record<string, number> = { "1": 0, "2-5": 1, "6-20": 2, "21-100"
 const volumeRank: Record<string, number> = { "0-200": 0, "201-1000": 1, "1001-5000": 2, "5001-20000": 3, "20000+": 4 };
 
 const standardPlans = [
-  { name: "Essencial", description: "Para uma operação enxuta que quer integrar a emissão e ganhar visibilidade sem manter infraestrutura fiscal própria." },
-  { name: "Crescimento", description: "Para operações ganhando volume ou adicionando emitentes, com espaço para crescer sem refazer a integração." },
-  { name: "Plataforma", description: "Para produtos com múltiplos CNPJs e volume relevante, onde monitoramento e operação centralizada são críticos." },
-  { name: "Plataforma", description: "Para produtos com múltiplos CNPJs e volume relevante, onde monitoramento e operação centralizada são críticos." },
-  { name: "Alto Volume", description: "Para operações de grande escala que precisam de dimensionamento e acompanhamento personalizados." },
+  { name: "Essencial", monthlyPrice: 149, migrationPrice: 249, description: "Para uma operação enxuta que quer integrar a emissão e ganhar visibilidade sem manter infraestrutura fiscal própria." },
+  { name: "Crescimento", monthlyPrice: 349, migrationPrice: 449, description: "Para operações ganhando volume ou adicionando emitentes, com espaço para crescer sem refazer a integração." },
+  { name: "Plataforma", monthlyPrice: 699, migrationPrice: 799, description: "Para produtos com múltiplos CNPJs e volume relevante, onde monitoramento e operação centralizada são críticos." },
+  { name: "Plataforma", monthlyPrice: 1199, migrationPrice: 1299, description: "Para produtos com múltiplos CNPJs e volume relevante, onde monitoramento e operação centralizada são críticos." },
+  { name: "Alto Volume", monthlyPrice: 2499, migrationPrice: 2499, description: "Para operações de grande escala que precisam de dimensionamento e acompanhamento personalizados." },
 ];
+
+const priceFormatter = new Intl.NumberFormat("pt-BR");
 
 function selectedLabel(steps: Step[], answers: Partial<Record<StepKey, string>>, key: StepKey) {
   const step = steps.find((item) => item.key === key);
@@ -106,16 +109,59 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
   const steps = mode === "migration" ? migrationSteps : standardSteps;
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState<Partial<Record<StepKey, string>>>({});
+  const [leadState, setLeadState] = useState<LeadState>("idle");
   const showingResult = stepIndex === steps.length;
   const currentStep = steps[stepIndex];
   const selected = currentStep ? answers[currentStep.key] : undefined;
   const scale = Math.max(cnpjRank[answers.cnpjs ?? "1"] ?? 0, volumeRank[answers.volume ?? "0-200"] ?? 0);
   const plan = standardPlans[scale];
+  const complexityAdjustment = mode === "migration"
+    ? answers.integration === "complex" ? 200 : answers.integration === "webhooks" ? 100 : 0
+    : answers.support === "complex" ? 300 : answers.support === "assisted" ? 100 : 0;
+  const monthlyPrice = (mode === "migration" ? plan.migrationPrice : plan.monthlyPrice) + complexityAdjustment;
 
   const restart = () => {
     setAnswers({});
     setStepIndex(0);
+    setLeadState("idle");
   };
+
+  async function submitLead(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setLeadState("submitting");
+
+    const form = event.currentTarget;
+    const payload = Object.fromEntries(new FormData(form));
+
+    if (payload.website) {
+      setLeadState("success");
+      return;
+    }
+
+    delete payload.website;
+
+    try {
+      const response = await fetch(import.meta.env.VITE_LEADS_ENDPOINT || "/api/leads", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          ...payload,
+          origin: mode === "migration" ? "migracao_nuvem_fiscal" : "homepage",
+          leadType: "plan_builder",
+          recommendedPlan: mode === "migration" ? "Migração Assistida" : `Invio ${plan.name}`,
+          monthlyPrice,
+          answers,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Lead endpoint unavailable");
+
+      form.reset();
+      setLeadState("success");
+    } catch {
+      setLeadState("error");
+    }
+  }
 
   return (
     <div className={`plan-builder ${mode === "migration" ? "plan-builder-migration" : ""}`}>
@@ -168,7 +214,10 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
                   type="button"
                   aria-pressed={selected === option.value}
                   key={option.value}
-                  onClick={() => setAnswers((current) => ({ ...current, [currentStep.key]: option.value }))}
+                  onClick={() => {
+                    setAnswers((current) => ({ ...current, [currentStep.key]: option.value }));
+                    setLeadState("idle");
+                  }}
                 >
                   <span className="wizard-option-icon"><Icon name={option.icon} size={19} /></span>
                   <span><strong>{option.label}</strong><small>{option.description}</small></span>
@@ -189,6 +238,11 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
             <p className="eyebrow">{mode === "migration" ? "Plano especial recomendado" : "Plano recomendado"}</p>
             <h3>{mode === "migration" ? "Migração Assistida" : `Invio ${plan.name}`}</h3>
             <p className="result-description">{mode === "migration" ? "Seu cenário pede uma migração dimensionada para preservar emitentes, eventos e o fluxo de faturamento durante a troca." : plan.description}</p>
+            <div className="result-price">
+              <span>Valor estimado para o seu cenário</span>
+              <strong><small>R$</small> {priceFormatter.format(monthlyPrice)} <small>/mês</small></strong>
+              <p>{mode === "migration" ? `Perfil ${plan.name} com migração assistida incluída.` : "Calculado a partir das respostas acima."}</p>
+            </div>
             <div className="result-scale">
               <span><small>CNPJs</small><strong>{selectedLabel(steps, answers, "cnpjs")}</strong></span>
               <span><small>Volume mensal</small><strong>{selectedLabel(steps, answers, "volume")}</strong></span>
@@ -200,11 +254,42 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
                 : ["API de emissão e consulta", "Webhooks e monitoramento", "Múltiplos emitentes", answers.support === "autonomous" ? "Integração conduzida pelo seu time" : "Onboarding e suporte na integração"]
               ).map((item) => <p key={item}><Icon name="check" size={14} /> {item}</p>)}
             </div>
+            {leadState === "success" ? (
+              <div className="plan-lead-success" role="status">
+                <span><Icon name="check" size={16} /></span>
+                <p><strong>Contato recebido.</strong><small>O time da Invio entrará em contato sobre este plano.</small></p>
+              </div>
+            ) : (
+              <form className="plan-lead-form" onSubmit={submitLead}>
+                <div className="honeypot" aria-hidden="true">
+                  <label>Não preencha<input name="website" tabIndex={-1} autoComplete="off" /></label>
+                </div>
+                <div className="plan-lead-heading">
+                  <strong>Quer contratar este plano?</strong>
+                  <span>Deixe seus contatos e leve esta estimativa para o time da Invio.</span>
+                </div>
+                <div className="plan-lead-fields">
+                  <label>E-mail corporativo<input name="email" type="email" autoComplete="email" required placeholder="voce@empresa.com" /></label>
+                  <label>Telefone / WhatsApp<input name="phone" type="tel" autoComplete="tel" required placeholder="(11) 99999-9999" /></label>
+                </div>
+                <label className="plan-consent">
+                  <input name="contactConsent" type="checkbox" value="yes" required />
+                  <span>Autorizo o contato da Invio sobre este plano.</span>
+                </label>
+                <button className="button button-primary" type="submit" disabled={leadState === "submitting"}>
+                  {leadState === "submitting" ? "Enviando…" : "Quero contratar este plano"}
+                  {leadState !== "submitting" && <Icon name="arrow" size={16} />}
+                </button>
+                {leadState === "error" && <p className="plan-lead-error" role="alert">Não foi possível enviar agora. Tente novamente em instantes.</p>}
+              </form>
+            )}
             <div className="result-actions">
-              <a className="button button-primary" href="#contato">Levar plano para uma proposta <Icon name="arrow" size={16} /></a>
-              <button type="button" onClick={() => setStepIndex(steps.length - 1)}>Ajustar respostas</button>
+              <button type="button" onClick={() => {
+                setLeadState("idle");
+                setStepIndex(steps.length - 1);
+              }}>Ajustar respostas</button>
             </div>
-            <small className="result-note">Recomendação inicial. Limites, valor e condições são confirmados pelo time antes da contratação.</small>
+            <small className="result-note">Estimativa inicial. Limites e condições finais são confirmados pelo time antes da contratação.</small>
           </div>
         )}
       </div>
