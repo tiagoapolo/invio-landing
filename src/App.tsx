@@ -37,7 +37,7 @@ export function App() {
       : isMigration
       ? {
           title: "Migração da Nuvem Fiscal para o Invio",
-          description: "Programa de migração assistida para SaaS, ERPs e plataformas que utilizavam a API da Nuvem Fiscal.",
+          description: "Avaliações de migração assistida por etapas a partir de 31/07 para SaaS, ERPs e plataformas que utilizavam a API da Nuvem Fiscal.",
           url: "https://useinvio.com/migrar-da-nuvem-fiscal",
           image: "",
           imageAlt: "",

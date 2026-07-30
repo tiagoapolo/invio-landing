@@ -35,13 +35,16 @@ test("migration page keeps factual, non-affiliated positioning", async () => {
   ]);
 
   assert.match(html, /Migração da Nuvem Fiscal para o Invio/);
-  assert.match(html, /Programa de migração assistida para SaaS, ERPs e plataformas/);
+  assert.match(html, /Avaliações de migração assistida por etapas a partir de 31\/07/);
   assert.match(html, /name="twitter:description"/);
   assert.match(page, /31 de julho de 2026/);
+  assert.match(page, /Avaliações abertas em 31\/07/);
+  assert.match(page, /entrada em operação por etapas/);
+  assert.match(page, /capacidade de onboarding/);
   assert.match(page, /não possui afiliação com a Nuvem Fiscal/);
   assert.match(page, /não prometemos compatibilidade automática/);
   assert.match(page, /sem promessa de prazo genérico/);
-  assert.match(page, /Plano especial de migração/);
+  assert.match(page, /Avaliação por etapas/);
   assert.doesNotMatch(page, /Comece pelo diagnóstico/);
   assert.doesNotMatch(page, /LeadForm/);
 });
@@ -65,6 +68,7 @@ test("plan builder recommends standard and migration profiles", async () => {
   assert.match(builder, /name="email"/);
   assert.match(builder, /name="phone"/);
   assert.match(builder, /Quero contratar este plano/);
+  assert.match(builder, /Solicitar avaliação da migração/);
   assert.match(builder, /formType: "plan_builder"/);
   assert.doesNotMatch(builder, /desconto de|% de desconto/);
 });

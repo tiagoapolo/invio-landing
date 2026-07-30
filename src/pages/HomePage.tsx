@@ -39,7 +39,7 @@ export function HomePage() {
       <div className="announcement">
         <a href="/migrar-da-nuvem-fiscal">
           <span>Utilizava a Nuvem Fiscal?</span>
-          Conheça o programa de migração assistida do Invio
+          Avaliações de migração por etapas a partir de 31/07
           <Icon name="arrow" size={15} />
         </a>
       </div>

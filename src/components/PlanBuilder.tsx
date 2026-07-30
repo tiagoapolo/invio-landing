@@ -192,17 +192,17 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
       <aside className="plan-builder-summary">
         {mode === "migration" ? (
           <>
-            <span className="special-plan-badge">Plano especial</span>
-            <p className="eyebrow eyebrow-light">Para quem está migrando</p>
+            <span className="special-plan-badge">Entrada por etapas</span>
+            <p className="eyebrow eyebrow-light">Avaliação de migração</p>
             <h3>Migração Assistida</h3>
-            <p>Um plano para mapear a integração atual, homologar os fluxos críticos e acompanhar a entrada em produção.</p>
+            <p>Envie seu cenário para o time avaliar a prioridade, mapear a integração atual e confirmar a janela de implantação.</p>
             <ul>
               <li><Icon name="check" size={15} /> Diagnóstico técnico</li>
               <li><Icon name="check" size={15} /> Configuração e homologação</li>
               <li><Icon name="check" size={15} /> Plano de virada</li>
               <li><Icon name="check" size={15} /> Acompanhamento em produção</li>
             </ul>
-            <div className="special-condition"><small>Condição comercial especial</small><strong>Calculada sobre sua operação atual</strong></div>
+            <div className="special-condition"><small>Condição comercial especial • avaliações a partir de 31/07</small><strong>Janela confirmada após o diagnóstico</strong></div>
           </>
         ) : (
           <>
@@ -281,7 +281,10 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
             {leadState === "success" ? (
               <div className="plan-lead-success" role="status">
                 <span><Icon name="check" size={16} /></span>
-                <p><strong>Contato recebido.</strong><small>O time da Invio entrará em contato sobre este plano.</small></p>
+                <p>
+                  <strong>{mode === "migration" ? "Solicitação recebida." : "Contato recebido."}</strong>
+                  <small>{mode === "migration" ? "O time da Invio fará a triagem e entrará em contato sobre o próximo passo." : "O time da Invio entrará em contato sobre este plano."}</small>
+                </p>
               </div>
             ) : (
               <form
@@ -300,8 +303,8 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
                   <label>Não preencha<input name="website" tabIndex={-1} autoComplete="off" /></label>
                 </div>
                 <div className="plan-lead-heading">
-                  <strong>Quer contratar este plano?</strong>
-                  <span>Deixe seus contatos e leve esta estimativa para o time da Invio.</span>
+                  <strong>{mode === "migration" ? "Quer solicitar uma avaliação?" : "Quer contratar este plano?"}</strong>
+                  <span>{mode === "migration" ? "Deixe seus contatos para o time analisar a prioridade e confirmar o próximo passo." : "Deixe seus contatos e leve esta estimativa para o time da Invio."}</span>
                 </div>
                 <div className="plan-lead-fields">
                   <label>E-mail corporativo<input name="email" type="email" autoComplete="email" required placeholder="voce@empresa.com" /></label>
@@ -312,7 +315,7 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
                   <span>Autorizo o contato da Invio sobre este plano.</span>
                 </label>
                 <button className="button button-primary" type="submit" disabled={leadState === "submitting"}>
-                  {leadState === "submitting" ? "Enviando…" : "Quero contratar este plano"}
+                  {leadState === "submitting" ? "Enviando…" : mode === "migration" ? "Solicitar avaliação da migração" : "Quero contratar este plano"}
                   {leadState !== "submitting" && <Icon name="arrow" size={16} />}
                 </button>
                 {leadState === "error" && <p className="plan-lead-error" role="alert">Não foi possível enviar agora. Tente novamente em instantes.</p>}

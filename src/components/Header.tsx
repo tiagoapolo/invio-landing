@@ -57,7 +57,7 @@ export function Header({ migration = false, remote = false }: { migration?: bool
                 if (remote) trackMarketingCta("remote_signup_click", "header");
               }}
             >
-              {remote ? "Criar conta grátis" : migration ? "Montar plano" : "Solicitar acesso"} <Icon name="arrow" size={16} />
+              {remote ? "Criar conta grátis" : migration ? "Solicitar avaliação" : "Solicitar acesso"} <Icon name="arrow" size={16} />
             </a>
           </div>
         </div>

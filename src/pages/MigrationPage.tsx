@@ -5,6 +5,7 @@ import { PlanBuilder } from "../components/PlanBuilder";
 
 const migrationFaqs = [
   ["O Invio é afiliado à Nuvem Fiscal?", "Não. O Invio não possui afiliação com a Nuvem Fiscal. A marca é mencionada exclusivamente para contextualizar a migração entre soluções."],
+  ["Como funciona a entrada por etapas?", "As avaliações começam em 31/07. O time analisa urgência, volume, quantidade de CNPJs e complexidade da integração para definir a ordem de atendimento. A janela de implantação é confirmada após o diagnóstico técnico."],
   ["Preciso alterar meu código?", "A avaliação técnica mapeia endpoints, payloads, autenticação, idempotência e webhooks usados hoje. A necessidade de alteração depende desse diagnóstico; não prometemos compatibilidade automática."],
   ["Posso testar antes da troca?", "Sim. O processo prevê configuração e homologação antes da validação para entrada em produção."],
   ["Como evitar notas duplicadas?", "A estratégia de virada considera idempotência, estados tratados pela aplicação e o ponto de corte entre os fornecedores. O plano é definido conforme o fluxo atual."],
@@ -20,7 +21,7 @@ export function MigrationPage() {
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
       <div className="migration-source-bar">
-        <span>Prazo informado pela Nuvem Fiscal: 31 de julho de 2026</span>
+        <span>Avaliações do Invio por etapas a partir de 31/07 • Prazo informado pela Nuvem Fiscal: 31 de julho de 2026</span>
         <a href="https://nuvemfiscal.com.br/" target="_blank" rel="noreferrer">Consultar fonte pública <Icon name="arrow" size={14} /></a>
       </div>
 
@@ -32,20 +33,20 @@ export function MigrationPage() {
           <div className="container migration-hero-layout">
             <div className="migration-hero-copy">
               <a className="back-link" href="/"><span>←</span> Voltar para o Invio</a>
-              <p className="eyebrow"><span /> Programa de migração assistida</p>
+              <p className="eyebrow"><span /> Avaliações abertas em 31/07</p>
               <h1>Saindo da Nuvem Fiscal? Planeje sua migração de NFS-e com o <em>Invio.</em></h1>
-              <p className="hero-subtitle">Migração assistida para SaaS, ERPs e plataformas que precisam manter emitentes, integrações e fluxos de faturamento funcionando.</p>
+              <p className="hero-subtitle">Migração assistida com entrada por etapas para SaaS, ERPs e plataformas que precisam preservar emitentes, integrações e fluxos de faturamento.</p>
               <div className="hero-actions">
-                <a className="button button-primary" href="#montar-plano">Montar plano de migração <Icon name="arrow" size={17} /></a>
+                <a className="button button-primary" href="#montar-plano">Solicitar avaliação de migração <Icon name="arrow" size={17} /></a>
                 <a className="button button-secondary" href="#processo">Ver como funciona</a>
               </div>
-              <p className="hero-note"><Icon name="shield" size={15} /> Diagnóstico antes da proposta. Nenhuma troca acontece automaticamente.</p>
+              <p className="hero-note"><Icon name="shield" size={15} /> As solicitações são priorizadas após o diagnóstico. Nenhuma troca acontece automaticamente.</p>
             </div>
 
             <div className="migration-map" aria-label="Representação das etapas de migração para o Invio">
               <div className="migration-map-head">
                 <div><small>Plano da virada</small><strong>Mapeamento da integração</strong></div>
-                <span>Em avaliação</span>
+                <span>Entrada por etapas</span>
               </div>
               <div className="map-progress"><i /><i /><i /><i /><i /></div>
               <div className="map-list">
@@ -61,10 +62,10 @@ export function MigrationPage() {
 
         <section className="migration-context">
           <div className="container migration-context-inner">
-            <div className="context-date"><small>Data anunciada</small><strong>31.07.2026</strong></div>
+            <div className="context-date"><small>Início das avaliações</small><strong>31.07.2026</strong></div>
             <div>
-              <h2>Uma mudança com prazo concreto e impacto direto na operação.</h2>
-              <p>A Nuvem Fiscal anunciou o encerramento do serviço em 31/07/2026. Para empresas que dependem da API, a troca exige mais do que apontar para outro endpoint: é preciso entender o fluxo atual, homologar os cenários críticos e planejar a virada.</p>
+              <h2>As avaliações começam em 31/07, com entrada em operação por etapas.</h2>
+              <p>O Invio receberá os cenários de migração, fará a triagem conforme urgência e complexidade e confirmará cada janela depois do diagnóstico técnico. A Nuvem Fiscal informou o prazo de 31/07/2026 para o encerramento do serviço.</p>
             </div>
             <a href="https://nuvemfiscal.com.br/" target="_blank" rel="noreferrer">Ver anúncio público <Icon name="arrow" size={15} /></a>
           </div>
@@ -96,8 +97,8 @@ export function MigrationPage() {
             <div className="section-heading sticky-heading">
               <p className="eyebrow eyebrow-light">Processo de migração</p>
               <h2>Decisões técnicas antes da virada.</h2>
-              <p>Cada etapa reduz uma incerteza da troca. O cronograma é definido depois de entender a integração — sem promessa de prazo genérico.</p>
-              <a className="button button-light" href="#montar-plano">Avaliar minha migração <Icon name="arrow" size={16} /></a>
+              <p>Cada etapa reduz uma incerteza da troca. A ordem de atendimento e o cronograma são definidos depois de entender a integração — sem promessa de prazo genérico.</p>
+              <a className="button button-light" href="#montar-plano">Solicitar avaliação <Icon name="arrow" size={16} /></a>
             </div>
             <ol className="process-timeline">
               {[
@@ -119,9 +120,9 @@ export function MigrationPage() {
         <section className="section migration-offer-section" id="montar-plano">
           <div className="container">
             <div className="section-heading centered-heading plan-heading">
-              <p className="eyebrow">Plano especial de migração</p>
-              <h2>Monte uma recomendação para <em>a sua virada.</em></h2>
-              <p>O escopo considera sua integração atual, CNPJs, volume e janela de migração.</p>
+              <p className="eyebrow">Avaliação por etapas</p>
+              <h2>Envie seu cenário para <em>avaliação.</em></h2>
+              <p>As solicitações começam em 31/07. A priorização considera integração atual, CNPJs, volume, urgência e capacidade de onboarding.</p>
             </div>
             <PlanBuilder mode="migration" />
           </div>
