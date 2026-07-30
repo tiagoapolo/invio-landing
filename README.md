@@ -33,8 +33,9 @@ Copie `.env.example` e ajuste quando necessário:
 
 - `VITE_APP_URL`: URL pública do dashboard Next.js.
 - `VITE_LEADS_ENDPOINT`: endpoint server-side que recebe os leads. O padrão é `/api/leads`.
+- `ATTIO_LEADS_WEBHOOK_URL`: URL privada do webhook que recebe os leads no Attio.
 
-O endpoint de leads deve persistir os dados e responder com status `2xx`. O formulário só exibe sucesso depois dessa confirmação e não envia segredos pelo browser.
+A função server-side em `/api/leads` valida o payload padronizado e o encaminha ao Attio. O formulário só exibe sucesso depois da confirmação do webhook e não envia segredos pelo browser.
 
 ## Hospedagem
 
