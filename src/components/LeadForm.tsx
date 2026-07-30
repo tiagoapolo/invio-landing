@@ -1,6 +1,7 @@
 import { FormEvent, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
 import { buildLeadPayload, type LeadOrigin } from "../leadPayload";
+import { applyPhoneMask } from "../phoneMask";
 import { Icon } from "./Icon";
 
 type FormState = "idle" | "submitting" | "success" | "error";
@@ -99,7 +100,7 @@ export function LeadForm({ origin }: { origin: LeadOrigin }) {
         </label>
         <label>
           Telefone / WhatsApp
-          <input name="phone" type="tel" autoComplete="tel" required placeholder="(11) 99999-9999" />
+          <input name="phone" type="tel" inputMode="numeric" autoComplete="tel" required maxLength={15} pattern="\([0-9]{2}\) [0-9]{4,5}-[0-9]{4}" title="Informe o DDD e o telefone" placeholder="(11) 99999-9999" onInput={applyPhoneMask} />
         </label>
         <label>
           Empresa

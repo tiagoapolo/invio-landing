@@ -1,6 +1,7 @@
 import { FormEvent, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
 import { buildLeadPayload } from "../leadPayload";
+import { applyPhoneMask } from "../phoneMask";
 import { Icon, type IconName } from "./Icon";
 
 type PlanBuilderMode = "standard" | "migration";
@@ -304,7 +305,7 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
                 </div>
                 <div className="plan-lead-fields">
                   <label>E-mail corporativo<input name="email" type="email" autoComplete="email" required placeholder="voce@empresa.com" /></label>
-                  <label>Telefone / WhatsApp<input name="phone" type="tel" autoComplete="tel" required placeholder="(11) 99999-9999" /></label>
+                  <label>Telefone / WhatsApp<input name="phone" type="tel" inputMode="numeric" autoComplete="tel" required maxLength={15} pattern="\([0-9]{2}\) [0-9]{4,5}-[0-9]{4}" title="Informe o DDD e o telefone" placeholder="(11) 99999-9999" onInput={applyPhoneMask} /></label>
                 </div>
                 <label className="plan-consent">
                   <input name="contactConsent" type="checkbox" value="yes" required />

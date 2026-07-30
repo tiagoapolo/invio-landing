@@ -138,6 +138,24 @@ test("forms send the same normalized lead payload contract", async () => {
   assert.match(payload, /contact: true/);
 });
 
+test("phone fields share the Brazilian phone mask", async () => {
+  const [leadForm, planBuilder, phoneMask] = await Promise.all([
+    read("../src/components/LeadForm.tsx"),
+    read("../src/components/PlanBuilder.tsx"),
+    read("../src/phoneMask.ts"),
+  ]);
+
+  for (const form of [leadForm, planBuilder]) {
+    assert.match(form, /onInput=\{applyPhoneMask\}/);
+    assert.match(form, /maxLength=\{15\}/);
+    assert.match(form, /pattern=/);
+  }
+
+  assert.match(phoneMask, /replace\(\/\\D\/g, ""\)/);
+  assert.match(phoneMask, /slice\(0, 11\)/);
+  assert.match(phoneMask, /localNumber\.length > 8 \? 5 : 4/);
+});
+
 test("remote landing follows the product, SEO and transparency brief", async () => {
   const [html, page, home, footer, sitemap, analytics] = await Promise.all([
     read("../remote/index.html"),
