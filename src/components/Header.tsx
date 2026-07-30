@@ -33,7 +33,7 @@ export function Header({ migration = false, remote = false }: { migration?: bool
         <div className={`nav-wrap ${open ? "is-open" : ""}`}>
           {remote ? (
             <nav aria-label="Navegação do Invio Remote">
-              <a href="#beneficios" onClick={close}>Produto</a>
+              <a href="#demo" onClick={close}>Produto</a>
               <a href="#como-funciona" onClick={close}>Como funciona</a>
               <a href="#plano-gratis" onClick={close}>Plano grátis</a>
               <a href="#faq" onClick={close}>Dúvidas</a>
@@ -57,7 +57,7 @@ export function Header({ migration = false, remote = false }: { migration?: bool
                 if (remote) trackMarketingCta("remote_signup_click", "header");
               }}
             >
-              {remote ? "Começar grátis" : migration ? "Montar plano" : "Solicitar acesso"} <Icon name="arrow" size={16} />
+              {remote ? "Criar conta grátis" : migration ? "Montar plano" : "Solicitar acesso"} <Icon name="arrow" size={16} />
             </a>
           </div>
         </div>

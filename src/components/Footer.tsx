@@ -14,9 +14,9 @@ export function Footer({ remote = false }: { remote?: boolean }) {
           <strong>Produto</strong>
           {remote ? (
             <>
-              <a href="#beneficios">Recursos</a>
+              <a href="#demo">Ver o produto</a>
               <a href="#como-funciona">Como funciona</a>
-              <a href="/documentacao">Documentação</a>
+              <a href="#certificado-a1">Certificado A1</a>
             </>
           ) : (
             <>
@@ -27,19 +27,20 @@ export function Footer({ remote = false }: { remote?: boolean }) {
           )}
         </div>
         <div className="footer-column">
-          <strong>Para sua operação</strong>
+          <strong>{remote ? "Para você" : "Para sua operação"}</strong>
           {!remote && <a href="/#para-quem">SaaS e ERPs</a>}
           <a href="/remote">Invio Remote</a>
           {!remote && <a href="/migrar-da-nuvem-fiscal">Migração Nuvem Fiscal</a>}
           <a href={remote ? appUrl : `${appUrl}/login`}>Entrar no app</a>
+          {remote && <a href="https://useinvio.com/#contato">Fale com a Invio</a>}
         </div>
       </div>
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} Invio.</span>
         {remote ? (
           <div className="footer-legal-links">
-            <a href="/termos-de-uso">Termos de uso</a>
-            <a href="/politica-de-privacidade">Política de privacidade</a>
+            <a href="https://useinvio.com/#contato">Contato</a>
+            {/* TODO: Add verified legal name, CNPJ, terms and privacy links when the public pages are available. */}
           </div>
         ) : <span>NFS-e Nacional, da integração à operação.</span>}
       </div>

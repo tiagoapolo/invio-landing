@@ -166,25 +166,37 @@ test("remote landing follows the product, SEO and transparency brief", async () 
     read("../src/analytics.ts"),
   ]);
 
-  assert.match(html, /Invio Remote — NFS-e para quem trabalha para o exterior/);
+  assert.match(html, /Como emitir nota fiscal para cliente do exterior \| Invio/);
   assert.match(html, /https:\/\/useinvio\.com\/remote/);
   assert.match(html, /summary_large_image/);
   assert.match(html, /remote-og\.png/);
   assert.match(html, /SoftwareApplication/);
   assert.match(html, /FAQPage/);
-  assert.match(page, /Seu trabalho é global\. Suas notas não precisam ser complicadas\./);
-  assert.match(page, /Plano grátis com até 2 notas por mês e 1 emitente/);
+  assert.match(page, /Emita NFS-e para/);
+  assert.match(page, /no exterior/);
+  assert.match(page, /sem depender/);
+  assert.match(page, /Criar conta grátis/);
+  assert.match(page, /Grátis até 2 notas por mês/);
+  assert.match(page, /arquivo no formato <strong>\.pfx/);
+  assert.match(page, /autoridade certificadora credenciada pela ICP-Brasil/);
+  assert.match(page, /Northstar LLC/);
+  assert.match(page, /As telas abaixo são ilustrativas e usam dados fictícios/);
+  assert.match(page, /O que acontece quando atinjo o limite de 2 notas/);
+  assert.match(page, /aria-expanded=\{open\}/);
+  assert.match(page, /aria-controls=\{answerId\}/);
   assert.match(page, /Certificado digital A1 necessário/);
-  assert.match(page, /A Invio não recebe pagamentos nem realiza operações de câmbio/);
-  assert.match(page, /A Invio não substitui sua contabilidade/);
+  assert.match(page, /A Invio não recebe pagamentos nem faz câmbio/);
+  assert.match(page, /A Invio não substitui seu contador/);
   assert.match(page, /https:\/\/app\.useinvio\.com/);
   assert.match(page, /remote_signup_click/);
   assert.match(home, /href="\/remote"/);
   assert.match(footer, /href="\/remote">Invio Remote/);
+  assert.match(footer, /Fale com a Invio/);
   assert.match(sitemap, /https:\/\/useinvio\.com\/remote/);
   assert.match(analytics, /dataLayer/);
   assert.doesNotMatch(page, /redução de impostos|receba pagamentos|câmbio automático/i);
   assert.doesNotMatch(page, /clientes atendidos|notas processadas|depoimento/i);
+  assert.doesNotMatch(page, /criptograf|armazenado com segurança|acesso restrito/i);
 });
 
 test("AI discovery files expose factual product context", async () => {
