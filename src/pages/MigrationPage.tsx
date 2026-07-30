@@ -1,7 +1,6 @@
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Icon, type IconName } from "../components/Icon";
-import { LeadForm } from "../components/LeadForm";
 import { PlanBuilder } from "../components/PlanBuilder";
 
 const migrationFaqs = [
@@ -146,22 +145,6 @@ export function MigrationPage() {
           </div>
         </section>
 
-        <section className="section contact-section migration-contact" id="contato">
-          <div className="container contact-layout">
-            <div className="contact-copy">
-              <p className="eyebrow">Comece pelo diagnóstico</p>
-              <h2>Receba um plano de migração para a sua operação.</h2>
-              <p>Compartilhe volume, quantidade de CNPJs e o contexto da integração. O time técnico usa essas informações para preparar a primeira conversa.</p>
-              <div className="contact-points">
-                <span><Icon name="check" size={16} /> Diagnóstico do fluxo atual</span>
-                <span><Icon name="check" size={16} /> Mapeamento das dependências</span>
-                <span><Icon name="check" size={16} /> Condição comercial após a avaliação</span>
-              </div>
-              <p className="legal-note"><Icon name="shield" size={16} /> O Invio não possui afiliação com a Nuvem Fiscal. A marca é mencionada exclusivamente para contextualizar a migração entre soluções.</p>
-            </div>
-            <LeadForm origin="migracao_nuvem_fiscal" />
-          </div>
-        </section>
       </main>
 
       <Footer />

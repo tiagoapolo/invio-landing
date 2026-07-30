@@ -34,6 +34,8 @@ test("migration page keeps factual, non-affiliated positioning", async () => {
   assert.match(page, /não prometemos compatibilidade automática/);
   assert.match(page, /sem promessa de prazo genérico/);
   assert.match(page, /Plano especial de migração/);
+  assert.doesNotMatch(page, /Comece pelo diagnóstico/);
+  assert.doesNotMatch(page, /LeadForm/);
 });
 
 test("plan builder recommends standard and migration profiles", async () => {

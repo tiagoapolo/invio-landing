@@ -34,8 +34,8 @@ export function Header({ migration = false }: { migration?: boolean }) {
           </nav>
           <div className="header-actions">
             <a className="login-link" href={`${appUrl}/login`}>Entrar</a>
-            <a className="button button-primary button-small" href="#contato" onClick={close}>
-              Solicitar acesso <Icon name="arrow" size={16} />
+            <a className="button button-primary button-small" href={migration ? "#montar-plano" : "#contato"} onClick={close}>
+              {migration ? "Montar plano" : "Solicitar acesso"} <Icon name="arrow" size={16} />
             </a>
           </div>
         </div>
