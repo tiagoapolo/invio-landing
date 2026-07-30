@@ -1,8 +1,8 @@
 import { FormEvent, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
+import { buildLeadPayload, type LeadOrigin } from "../leadPayload";
 import { Icon } from "./Icon";
 
-type LeadOrigin = "homepage" | "migracao_nuvem_fiscal";
 type FormState = "idle" | "submitting" | "success" | "error";
 
 export function LeadForm({ origin }: { origin: LeadOrigin }) {
@@ -21,20 +21,42 @@ export function LeadForm({ origin }: { origin: LeadOrigin }) {
     trackEvent("form_submit", { form_name: "lead_form", lead_source: origin });
 
     const form = event.currentTarget;
-    const payload = Object.fromEntries(new FormData(form));
+    const fields = Object.fromEntries(new FormData(form)) as Record<string, string>;
 
-    if (payload.address) {
+    if (fields.address) {
       setState("success");
       return;
     }
 
-    delete payload.address;
+    const payload = buildLeadPayload({
+      formType: "lead_form",
+      origin,
+      contact: {
+        name: fields.name,
+        email: fields.email,
+        phone: fields.phone,
+        role: fields.role,
+      },
+      company: {
+        name: fields.company,
+        site: fields.companySite,
+      },
+      qualification: {
+        cnpjRange: fields.cnpjRange,
+        monthlyVolume: fields.monthlyVolume,
+        timeline: fields.timeline,
+        currentSolution: fields.currentSolution,
+        mainNeed: fields.mainNeed,
+        currentSpend: fields.currentSpend,
+        additionalDetails: fields.additionalDetails,
+      },
+    });
 
     try {
       const response = await fetch(import.meta.env.VITE_LEADS_ENDPOINT || "/api/leads", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...payload, origin }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) throw new Error("Lead endpoint unavailable");

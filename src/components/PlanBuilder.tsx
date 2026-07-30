@@ -1,5 +1,6 @@
 import { FormEvent, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
+import { buildLeadPayload } from "../leadPayload";
 import { Icon, type IconName } from "./Icon";
 
 type PlanBuilderMode = "standard" | "migration";
@@ -136,27 +137,37 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
     trackEvent("form_submit", { form_name: "plan_builder", lead_source: leadSource });
 
     const form = event.currentTarget;
-    const payload = Object.fromEntries(new FormData(form));
+    const fields = Object.fromEntries(new FormData(form)) as Record<string, string>;
 
-    if (payload.website) {
+    if (fields.website) {
       setLeadState("success");
       return;
     }
 
-    delete payload.website;
+    const payload = buildLeadPayload({
+      formType: "plan_builder",
+      origin: leadSource,
+      contact: {
+        email: fields.email,
+        phone: fields.phone,
+      },
+      qualification: {
+        operation: answers.operation,
+        cnpjRange: answers.cnpjs,
+        monthlyVolume: answers.volume,
+        support: answers.support,
+        integration: answers.integration,
+        timeline: answers.timeline,
+        recommendedPlan: mode === "migration" ? "Migração Assistida" : `Invio ${plan.name}`,
+        monthlyPrice,
+      },
+    });
 
     try {
       const response = await fetch(import.meta.env.VITE_LEADS_ENDPOINT || "/api/leads", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          ...payload,
-          origin: leadSource,
-          leadType: "plan_builder",
-          recommendedPlan: mode === "migration" ? "Migração Assistida" : `Invio ${plan.name}`,
-          monthlyPrice,
-          answers,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) throw new Error("Lead endpoint unavailable");

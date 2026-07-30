@@ -65,17 +65,20 @@ test("plan builder recommends standard and migration profiles", async () => {
   assert.match(builder, /name="email"/);
   assert.match(builder, /name="phone"/);
   assert.match(builder, /Quero contratar este plano/);
-  assert.match(builder, /leadType: "plan_builder"/);
+  assert.match(builder, /formType: "plan_builder"/);
   assert.doesNotMatch(builder, /desconto de|% de desconto/);
 });
 
 test("lead form requires persistence before showing success", async () => {
-  const form = await read("../src/components/LeadForm.tsx");
+  const [form, payload] = await Promise.all([
+    read("../src/components/LeadForm.tsx"),
+    read("../src/leadPayload.ts"),
+  ]);
 
   assert.match(form, /VITE_LEADS_ENDPOINT/);
   assert.match(form, /if \(!response\.ok\) throw/);
-  assert.match(form, /migracao_nuvem_fiscal/);
-  assert.match(form, /homepage/);
+  assert.match(payload, /migracao_nuvem_fiscal/);
+  assert.match(payload, /homepage/);
   assert.match(form, /name="phone"/);
   assert.match(form, /Nenhuma contratação acontece automaticamente/);
   assert.match(form, /name="address"/);
@@ -116,6 +119,23 @@ test("forms track starts, attempts, successful leads and errors without personal
     assert.doesNotMatch(form, /trackEvent\([^\n]+email/);
     assert.doesNotMatch(form, /trackEvent\([^\n]+phone/);
   }
+});
+
+test("forms send the same normalized lead payload contract", async () => {
+  const [leadForm, planBuilder, payload] = await Promise.all([
+    read("../src/components/LeadForm.tsx"),
+    read("../src/components/PlanBuilder.tsx"),
+    read("../src/leadPayload.ts"),
+  ]);
+
+  assert.match(leadForm, /buildLeadPayload/);
+  assert.match(planBuilder, /buildLeadPayload/);
+  assert.match(payload, /schemaVersion: "1\.0"/);
+  assert.match(payload, /submittedAt/);
+  assert.match(payload, /qualification:/);
+  assert.match(payload, /attribution:/);
+  assert.match(payload, /utmSource/);
+  assert.match(payload, /contact: true/);
 });
 
 test("remote landing follows the product, SEO and transparency brief", async () => {
