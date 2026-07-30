@@ -197,7 +197,7 @@ export function HomePage() {
               <p className="eyebrow">Para operações digitais</p>
               <h2>Infraestrutura fiscal para quem precisa <em>embutir emissão no produto.</em></h2>
               <p>O Invio é direcionado a empresas que conectam a emissão ao billing, pagamento ou fechamento financeiro.</p>
-              <a className="text-link" href="#contato">Conversar sobre meu cenário <Icon name="arrow" size={16} /></a>
+              <a className="text-link" href="/remote">NFS-e para quem trabalha para o exterior <Icon name="arrow" size={16} /></a>
             </div>
             <div className="audience-cards">
               {audiences.map(([title, text], index) => (

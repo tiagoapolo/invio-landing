@@ -80,4 +80,37 @@ test("client routing corrects metadata when hosting falls back to the homepage",
   assert.match(app, /document\.title = metadata\.title/);
   assert.match(app, /link\[rel=\"canonical\"\]/);
   assert.match(app, /migrar-da-nuvem-fiscal/);
+  assert.match(app, /path === "\/remote"/);
+  assert.match(app, /<RemotePage/);
+});
+
+test("remote landing follows the product, SEO and transparency brief", async () => {
+  const [html, page, home, footer, sitemap, analytics] = await Promise.all([
+    read("../remote/index.html"),
+    read("../src/pages/RemotePage.tsx"),
+    read("../src/pages/HomePage.tsx"),
+    read("../src/components/Footer.tsx"),
+    read("../public/sitemap.xml"),
+    read("../src/analytics.ts"),
+  ]);
+
+  assert.match(html, /Invio Remote — NFS-e para quem trabalha para o exterior/);
+  assert.match(html, /https:\/\/useinvio\.com\/remote/);
+  assert.match(html, /summary_large_image/);
+  assert.match(html, /remote-og\.png/);
+  assert.match(html, /SoftwareApplication/);
+  assert.match(html, /FAQPage/);
+  assert.match(page, /Seu trabalho é global\. Suas notas não precisam ser complicadas\./);
+  assert.match(page, /Plano grátis com até 2 notas por mês e 1 emitente/);
+  assert.match(page, /Certificado digital A1 necessário/);
+  assert.match(page, /A Invio não recebe pagamentos nem realiza operações de câmbio/);
+  assert.match(page, /A Invio não substitui sua contabilidade/);
+  assert.match(page, /https:\/\/app\.useinvio\.com/);
+  assert.match(page, /remote_signup_click/);
+  assert.match(home, /href="\/remote"/);
+  assert.match(footer, /href="\/remote">Invio Remote/);
+  assert.match(sitemap, /https:\/\/useinvio\.com\/remote/);
+  assert.match(analytics, /dataLayer/);
+  assert.doesNotMatch(page, /redução de impostos|receba pagamentos|câmbio automático/i);
+  assert.doesNotMatch(page, /clientes atendidos|notas processadas|depoimento/i);
 });

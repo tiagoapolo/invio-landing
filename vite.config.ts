@@ -11,6 +11,7 @@ export default defineConfig({
         migration: fileURLToPath(
           new URL("./migrar-da-nuvem-fiscal/index.html", import.meta.url),
         ),
+        remote: fileURLToPath(new URL("./remote/index.html", import.meta.url)),
       },
     },
   },
