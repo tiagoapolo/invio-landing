@@ -7,7 +7,9 @@
     <meta name="robots" content="index, follow" />
     <title>Invio — API de NFS-e Nacional para SaaS e plataformas</title>
     <meta name="description" content="Emita e monitore NFS-e Nacional com API, webhooks, múltiplos emitentes e acompanhamento operacional." />
+    <meta name="author" content="Invio" />
     <link rel="canonical" href="https://useinvio.com/" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="Invio para assistentes de IA" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
@@ -17,10 +19,85 @@
     <meta property="og:url" content="https://useinvio.com/" />
     <meta name="twitter:card" content="summary" />
     <script type="application/ld+json">
-      {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Invio","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Infraestrutura de NFS-e Nacional para SaaS, ERPs e plataformas.","url":"https://useinvio.com/"}
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://useinvio.com/#organization",
+            "name": "Invio",
+            "url": "https://useinvio.com/",
+            "logo": "https://useinvio.com/favicon.svg",
+            "description": "Infraestrutura brasileira de emissão e monitoramento de NFS-e Nacional."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://useinvio.com/#website",
+            "url": "https://useinvio.com/",
+            "name": "Invio",
+            "inLanguage": "pt-BR",
+            "publisher": {"@id": "https://useinvio.com/#organization"}
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://useinvio.com/#software",
+            "name": "Invio",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "description": "API e painel operacional para emissão e monitoramento de NFS-e Nacional por SaaS, ERPs e plataformas.",
+            "url": "https://useinvio.com/",
+            "provider": {"@id": "https://useinvio.com/#organization"},
+            "audience": {
+              "@type": "BusinessAudience",
+              "audienceType": "SaaS, ERPs, software houses, plataformas de serviços e equipes de billing"
+            },
+            "featureList": [
+              "API de emissão e consulta de NFS-e Nacional",
+              "Múltiplos emitentes e certificados A1",
+              "Webhooks assinados",
+              "Ambientes separados de homologação e produção",
+              "Monitoramento de estados, erros e eventos",
+              "Consulta e download de XML"
+            ]
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://useinvio.com/#webpage",
+            "url": "https://useinvio.com/",
+            "name": "Invio — API de NFS-e Nacional para SaaS e plataformas",
+            "description": "Emita e monitore NFS-e Nacional com API, webhooks, múltiplos emitentes e acompanhamento operacional.",
+            "inLanguage": "pt-BR",
+            "isPartOf": {"@id": "https://useinvio.com/#website"},
+            "about": {"@id": "https://useinvio.com/#software"},
+            "mainEntity": {"@id": "https://useinvio.com/#software"}
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://useinvio.com/#faq",
+            "mainEntity": [
+              {"@type":"Question","name":"O Invio atende quais documentos?","acceptedAnswer":{"@type":"Answer","text":"O foco do Invio é NFS-e Nacional. O produto não é apresentado como uma solução genérica para todos os documentos fiscais."}},
+              {"@type":"Question","name":"Qual certificado é necessário?","acceptedAnswer":{"@type":"Answer","text":"A operação utiliza certificado digital A1 no formato .pfx, associado ao emitente no painel."}},
+              {"@type":"Question","name":"Existe ambiente de homologação?","acceptedAnswer":{"@type":"Answer","text":"Sim. O produto trabalha com ambientes de homologação restrita e produção para validar o fluxo antes da entrada em operação."}},
+              {"@type":"Question","name":"Posso cadastrar vários CNPJs?","acceptedAnswer":{"@type":"Answer","text":"Sim. O Invio foi desenhado para operações com múltiplos emitentes, perfis de serviço e certificados."}},
+              {"@type":"Question","name":"Como recebo os eventos?","acceptedAnswer":{"@type":"Answer","text":"Por webhooks configuráveis para eventos de emissão autorizada, rejeitada ou com erro, além do acompanhamento pelo painel."}},
+              {"@type":"Question","name":"O que acontece em uma rejeição?","acceptedAnswer":{"@type":"Answer","text":"A emissão fica registrada com seu status, erros e eventos para diagnóstico e ação do time responsável."}},
+              {"@type":"Question","name":"Como o valor é calculado?","acceptedAnswer":{"@type":"Answer","text":"A proposta considera CNPJs ativos, volume mensal de NFS-e e o nível de suporte ou complexidade da integração."}},
+              {"@type":"Question","name":"Como os webhooks são protegidos?","acceptedAnswer":{"@type":"Answer","text":"As entregas possuem assinatura no header X-Invio-Signature. Os detalhes de validação são fornecidos durante a integração."}}
+            ]
+          }
+        ]
+      }
     </script>
   </head>
   <body>
+    <noscript>
+      <main>
+        <h1>API de NFS-e Nacional para SaaS, ERPs e plataformas</h1>
+        <p>O Invio centraliza emissão e monitoramento de NFS-e Nacional por API e painel operacional.</p>
+        <p>Recursos: múltiplos emitentes, certificados A1, homologação e produção, webhooks assinados, estados de emissão, diagnóstico de rejeições e acesso ao XML.</p>
+        <p>Consulte a <a href="/llms-full.txt">referência completa do produto</a> ou acesse o site com JavaScript habilitado.</p>
+      </main>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

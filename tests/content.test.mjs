@@ -4,6 +4,12 @@ import test from "node:test";
 
 const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
 
+const structuredData = (html) => {
+  const match = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  assert.ok(match, "expected JSON-LD structured data");
+  return JSON.parse(match[1]);
+};
+
 test("homepage has the approved positioning and SEO metadata", async () => {
   const [html, page] = await Promise.all([
     read("../index.html"),
@@ -113,4 +119,43 @@ test("remote landing follows the product, SEO and transparency brief", async () 
   assert.match(analytics, /dataLayer/);
   assert.doesNotMatch(page, /redução de impostos|receba pagamentos|câmbio automático/i);
   assert.doesNotMatch(page, /clientes atendidos|notas processadas|depoimento/i);
+});
+
+test("AI discovery files expose factual product context", async () => {
+  const [summary, full, robots, sitemap] = await Promise.all([
+    read("../public/llms.txt"),
+    read("../public/llms-full.txt"),
+    read("../public/robots.txt"),
+    read("../public/sitemap.xml"),
+  ]);
+
+  assert.match(summary, /^# Invio/m);
+  assert.match(summary, /https:\/\/useinvio\.com\/llms-full\.txt/);
+  assert.match(summary, /does not replace accounting advice/i);
+  assert.match(full, /X-Invio-Signature/);
+  assert.match(full, /Invio is not affiliated with Nuvem Fiscal/);
+  assert.match(full, /Up to 2 NFS-e per month/);
+  assert.match(robots, /User-agent: GPTBot\nAllow: \//);
+  assert.match(robots, /User-agent: OAI-SearchBot\nAllow: \//);
+  assert.match(robots, /User-agent: ClaudeBot\nAllow: \//);
+  assert.match(sitemap, /<lastmod>2026-07-29<\/lastmod>/);
+});
+
+test("every public landing exposes linked AI context and valid entity schema", async () => {
+  const pages = await Promise.all([
+    read("../index.html"),
+    read("../remote/index.html"),
+    read("../migrar-da-nuvem-fiscal/index.html"),
+  ]);
+
+  for (const html of pages) {
+    assert.match(html, /rel="alternate" type="text\/plain" href="\/llms\.txt"/);
+    assert.match(html, /<noscript>[\s\S]*?<main>[\s\S]*?<h1>/);
+    assert.match(html, /href="\/llms-full\.txt"/);
+    const schema = structuredData(html);
+    assert.equal(schema["@context"], "https://schema.org");
+    assert.ok(Array.isArray(schema["@graph"]));
+    assert.ok(schema["@graph"].some((entity) => entity["@type"] === "Organization"));
+    assert.ok(schema["@graph"].some((entity) => entity["@type"] === "WebPage"));
+  }
 });

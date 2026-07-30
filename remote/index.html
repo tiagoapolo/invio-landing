@@ -7,7 +7,9 @@
     <meta name="robots" content="index, follow" />
     <title>Invio Remote — NFS-e para quem trabalha para o exterior</title>
     <meta name="description" content="Emita e acompanhe NFS-e para clientes internacionais. Comece grátis com até 2 notas por mês e 1 emitente. Certificado A1 necessário." />
+    <meta name="author" content="Invio" />
     <link rel="canonical" href="https://useinvio.com/remote" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="Invio para assistentes de IA" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
@@ -28,12 +30,26 @@
         "@context": "https://schema.org",
         "@graph": [
           {
+            "@type": "Organization",
+            "@id": "https://useinvio.com/#organization",
+            "name": "Invio",
+            "url": "https://useinvio.com/",
+            "logo": "https://useinvio.com/favicon.svg"
+          },
+          {
             "@type": "SoftwareApplication",
+            "@id": "https://useinvio.com/remote#software",
             "name": "Invio Remote",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Web",
             "description": "Emissão e acompanhamento de NFS-e para profissionais brasileiros com clientes internacionais.",
             "url": "https://useinvio.com/remote",
+            "provider": {"@id": "https://useinvio.com/#organization"},
+            "audience": {
+              "@type": "BusinessAudience",
+              "audienceType": "Profissionais e empresas brasileiras com CNPJ que prestam serviços a clientes internacionais"
+            },
+            "featureList": ["Emissão de NFS-e", "Histórico de emissões", "Download de XML", "Visualização de rejeições"],
             "offers": {
               "@type": "Offer",
               "price": "0",
@@ -42,7 +58,18 @@
             }
           },
           {
+            "@type": "WebPage",
+            "@id": "https://useinvio.com/remote#webpage",
+            "url": "https://useinvio.com/remote",
+            "name": "Invio Remote — NFS-e para quem trabalha para o exterior",
+            "description": "Emita e acompanhe NFS-e para clientes internacionais. Comece grátis com até 2 notas por mês e 1 emitente. Certificado A1 necessário.",
+            "inLanguage": "pt-BR",
+            "about": {"@id": "https://useinvio.com/remote#software"},
+            "mainEntity": {"@id": "https://useinvio.com/remote#software"}
+          },
+          {
             "@type": "FAQPage",
+            "@id": "https://useinvio.com/remote#faq",
             "mainEntity": [
               {"@type":"Question","name":"O plano grátis é realmente gratuito?","acceptedAnswer":{"@type":"Answer","text":"Sim. Ele permite emitir até 2 NFS-e por mês com 1 emitente."}},
               {"@type":"Question","name":"Preciso de certificado digital?","acceptedAnswer":{"@type":"Answer","text":"Sim. É necessário possuir um certificado digital A1 válido para realizar as emissões."}},
@@ -58,6 +85,14 @@
     </script>
   </head>
   <body>
+    <noscript>
+      <main>
+        <h1>Invio Remote: NFS-e para quem trabalha para o exterior</h1>
+        <p>Emissão e acompanhamento de NFS-e para profissionais e empresas brasileiras com CNPJ que atendem clientes internacionais.</p>
+        <p>O plano grátis inclui até 2 NFS-e por mês e 1 emitente. É necessário possuir um certificado digital A1 válido. A Invio não recebe pagamentos, não realiza câmbio e não substitui a contabilidade.</p>
+        <p>Consulte a <a href="/llms-full.txt">referência completa do produto</a> ou acesse o site com JavaScript habilitado.</p>
+      </main>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

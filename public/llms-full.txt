@@ -1,0 +1,125 @@
+# Invio: complete product reference
+
+Canonical source: https://useinvio.com/
+Language: Brazilian Portuguese (pt-BR)
+Market: Brazil
+Last reviewed: 2026-07-29
+
+## What Invio is
+
+Invio is infrastructure for issuing and monitoring NFS-e Nacional, Brazil's national electronic service invoice. It is designed for SaaS companies, ERPs, software houses, service platforms, billing teams, and finance operations that need invoice issuance without maintaining their own fiscal infrastructure.
+
+The core flow is: configure issuers, service profiles, and A1 digital certificates; integrate the API; issue invoices; receive state changes through signed webhooks; and monitor events, errors, rejections, and XML files in the dashboard.
+
+## Core product capabilities
+
+- API to create and query NFS-e emissions.
+- Multiple issuers (CNPJs), service profiles, and certificates in one operation.
+- A1 digital certificates in .pfx format, associated with each issuer.
+- Separate restricted/test and production environments.
+- Configurable webhooks for authorized, rejected, and error states.
+- Webhook signatures in the `X-Invio-Signature` header.
+- Idempotency support through `Idempotency-Key` when creating emissions.
+- Operational dashboard with emission status, event timeline, errors, queries, and XML access.
+- API key creation and revocation through the dashboard.
+
+Invio focuses on NFS-e Nacional. It is not represented as a solution for every type of Brazilian fiscal document.
+
+## Intended customers
+
+- B2B SaaS products that connect invoice issuance to billing.
+- ERPs and software houses serving operations with multiple issuers.
+- Service platforms that manage multiple providers.
+- Billing and finance teams that need issuance events for billing, reconciliation, and support.
+
+Commercial recommendations consider active CNPJs, monthly NFS-e volume, and integration/support complexity. Final terms are confirmed with Invio; the website's plan builder provides an initial estimate rather than an automatic contract.
+
+## Invio API FAQ
+
+### Which documents does Invio support?
+
+Invio focuses on NFS-e Nacional and is not presented as a generic solution for all fiscal documents.
+
+### Which certificate is required?
+
+The operation uses an A1 digital certificate in .pfx format, associated with the issuer in the dashboard.
+
+### Is there a test environment?
+
+Yes. Invio separates restricted/test and production environments so teams can validate their flow before going live.
+
+### Can an operation register multiple CNPJs?
+
+Yes. Invio supports operations with multiple issuers, service profiles, and certificates.
+
+### How are events delivered?
+
+Through configurable webhooks for authorized, rejected, or error emission states, with monitoring also available in the dashboard.
+
+### What happens when an invoice is rejected?
+
+The emission remains recorded with its status, errors, and events for diagnosis and follow-up.
+
+### How are webhooks protected?
+
+Webhook deliveries include a signature in the `X-Invio-Signature` header. Validation details are supplied during integration.
+
+## Invio Remote
+
+Canonical URL: https://useinvio.com/remote
+
+Invio Remote is for Brazilian professionals and companies with a CNPJ in Brazil that need to issue NFS-e for services provided to international clients. It lets users register an issuer and service profile, add an A1 certificate, issue NFS-e, monitor status and rejections, view history, and download XML files.
+
+The free plan costs BRL 0 to start and includes:
+
+- Up to 2 NFS-e per month.
+- 1 issuer.
+- Monitoring dashboard.
+- Emission history.
+- XML downloads.
+- Rejection visibility.
+
+A valid A1 digital certificate is required. Invio does not receive payments, perform foreign exchange, replace an accountant, or determine tax treatment. Fiscal configuration and tax decisions should be validated with the customer's accountant.
+
+## Invio Remote FAQ
+
+### Is the free plan really free?
+
+Yes. It allows up to 2 NFS-e per month with 1 issuer.
+
+### What is an issuer?
+
+The issuer is the CNPJ responsible for issuing the invoice. The free plan allows one issuer.
+
+### Can customers issue invoices to foreign clients?
+
+The platform supports configuring operations related to services provided abroad. Fiscal data and tax treatment must follow guidance from the customer's accountant.
+
+### Does Invio receive payments in foreign currency?
+
+No. Invio handles NFS-e issuance and monitoring. Payment and foreign exchange remain with the financial service chosen by the customer.
+
+## Assisted migration from Nuvem Fiscal
+
+Canonical URL: https://useinvio.com/migrar-da-nuvem-fiscal
+
+Invio offers assisted migration for SaaS companies, ERPs, and platforms moving their NFS-e flow from Nuvem Fiscal. Invio is not affiliated with Nuvem Fiscal; the name is used only to describe migration context.
+
+The migration process covers:
+
+1. Technical assessment of current endpoints, authentication, payloads, states, and resources.
+2. Mapping current dependencies to the Invio flow and identifying required changes.
+3. Configuring issuers, service profiles, and A1 certificates in the test environment.
+4. Validating webhooks, error handling, idempotency, and duplicate-prevention strategy.
+5. Planning the cutover and monitoring the first production emissions.
+
+Invio does not promise automatic API compatibility or a generic migration timeline. Requirements and timing depend on the technical assessment. The public Nuvem Fiscal website announced service closure for 31 July 2026; consult that company's official source for the current status.
+
+## Official URLs
+
+- Main website: https://useinvio.com/
+- Invio Remote: https://useinvio.com/remote
+- Assisted migration: https://useinvio.com/migrar-da-nuvem-fiscal
+- Application: https://app.useinvio.com/
+- Sitemap: https://useinvio.com/sitemap.xml
+- AI summary: https://useinvio.com/llms.txt

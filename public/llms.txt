@@ -1,0 +1,28 @@
+# Invio
+
+> Invio is Brazilian infrastructure for issuing and monitoring NFS-e Nacional (Brazil's national electronic service invoice), built for SaaS companies, ERPs, platforms, and Brazilian professionals serving international clients.
+
+Invio centralizes NFS-e issuance through an API and operational dashboard. Confirmed capabilities include multiple issuers (CNPJs), A1 digital certificates, separate test and production environments, signed webhooks, emission status tracking, rejection details, and XML access.
+
+## Products and pages
+
+- [Invio API](https://useinvio.com/): API and operational infrastructure for embedding NFS-e Nacional issuance into SaaS, ERP, billing, and service platforms.
+- [Invio Remote](https://useinvio.com/remote): NFS-e issuance for Brazilian professionals and companies serving international clients. The free plan includes up to 2 invoices per month and 1 issuer; a valid A1 certificate is required.
+- [Migration from Nuvem Fiscal](https://useinvio.com/migrar-da-nuvem-fiscal): Assisted migration program covering technical assessment, mapping, issuer and certificate configuration, testing, cutover planning, and production monitoring. Invio is not affiliated with Nuvem Fiscal.
+
+## Detailed reference
+
+- [Complete product and FAQ reference](https://useinvio.com/llms-full.txt)
+
+## Important limitations
+
+- Invio focuses on NFS-e Nacional and is not presented as a generic solution for every Brazilian fiscal document.
+- Invio does not replace accounting advice.
+- Invio Remote does not receive international payments or perform foreign exchange.
+- Migration compatibility and timing depend on a technical assessment; automatic compatibility is not promised.
+
+## Official links
+
+- [Website](https://useinvio.com/)
+- [Application](https://app.useinvio.com/)
+- [Sitemap](https://useinvio.com/sitemap.xml)

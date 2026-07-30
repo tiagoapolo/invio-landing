@@ -7,7 +7,9 @@
     <meta name="robots" content="index, follow" />
     <title>Migração da Nuvem Fiscal para o Invio</title>
     <meta name="description" content="Programa de migração assistida para SaaS, ERPs e plataformas que utilizavam a API da Nuvem Fiscal." />
+    <meta name="author" content="Invio" />
     <link rel="canonical" href="https://useinvio.com/migrar-da-nuvem-fiscal" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="Invio para assistentes de IA" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
@@ -17,10 +19,65 @@
     <meta property="og:url" content="https://useinvio.com/migrar-da-nuvem-fiscal" />
     <meta name="twitter:card" content="summary" />
     <script type="application/ld+json">
-      {"@context":"https://schema.org","@type":"Service","name":"Programa de migração assistida Invio","serviceType":"Migração de infraestrutura de NFS-e","provider":{"@type":"Organization","name":"Invio"},"url":"https://useinvio.com/migrar-da-nuvem-fiscal"}
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://useinvio.com/#organization",
+            "name": "Invio",
+            "url": "https://useinvio.com/",
+            "logo": "https://useinvio.com/favicon.svg"
+          },
+          {
+            "@type": "Service",
+            "@id": "https://useinvio.com/migrar-da-nuvem-fiscal#service",
+            "name": "Programa de migração assistida Invio",
+            "serviceType": "Migração assistida de infraestrutura de NFS-e",
+            "description": "Diagnóstico, mapeamento, configuração, homologação, planejamento da virada e acompanhamento em produção para operações que utilizavam a API da Nuvem Fiscal.",
+            "provider": {"@id": "https://useinvio.com/#organization"},
+            "areaServed": {"@type": "Country", "name": "Brasil"},
+            "audience": {
+              "@type": "BusinessAudience",
+              "audienceType": "SaaS, ERPs e plataformas que utilizavam a API da Nuvem Fiscal"
+            },
+            "url": "https://useinvio.com/migrar-da-nuvem-fiscal"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://useinvio.com/migrar-da-nuvem-fiscal#webpage",
+            "url": "https://useinvio.com/migrar-da-nuvem-fiscal",
+            "name": "Migração da Nuvem Fiscal para o Invio",
+            "description": "Programa de migração assistida para SaaS, ERPs e plataformas que utilizavam a API da Nuvem Fiscal.",
+            "inLanguage": "pt-BR",
+            "about": {"@id": "https://useinvio.com/migrar-da-nuvem-fiscal#service"},
+            "mainEntity": {"@id": "https://useinvio.com/migrar-da-nuvem-fiscal#service"}
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://useinvio.com/migrar-da-nuvem-fiscal#faq",
+            "mainEntity": [
+              {"@type":"Question","name":"O Invio é afiliado à Nuvem Fiscal?","acceptedAnswer":{"@type":"Answer","text":"Não. O Invio não possui afiliação com a Nuvem Fiscal. A marca é mencionada exclusivamente para contextualizar a migração entre soluções."}},
+              {"@type":"Question","name":"Preciso alterar meu código?","acceptedAnswer":{"@type":"Answer","text":"A avaliação técnica mapeia endpoints, payloads, autenticação, idempotência e webhooks usados hoje. A necessidade de alteração depende do diagnóstico; não há promessa de compatibilidade automática."}},
+              {"@type":"Question","name":"Posso testar antes da troca?","acceptedAnswer":{"@type":"Answer","text":"Sim. O processo prevê configuração e homologação antes da validação para entrada em produção."}},
+              {"@type":"Question","name":"Como evitar notas duplicadas?","acceptedAnswer":{"@type":"Answer","text":"A estratégia de virada considera idempotência, estados tratados pela aplicação e o ponto de corte entre os fornecedores. O plano é definido conforme o fluxo atual."}},
+              {"@type":"Question","name":"Posso migrar vários CNPJs?","acceptedAnswer":{"@type":"Answer","text":"Sim. O programa considera operações com múltiplos emitentes e dimensiona o plano pela quantidade de CNPJs, volume e complexidade."}},
+              {"@type":"Question","name":"Quanto tempo leva a avaliação?","acceptedAnswer":{"@type":"Answer","text":"O prazo depende da integração existente e da disponibilidade das informações técnicas. O Invio não promete uma duração fixa antes do diagnóstico."}}
+            ]
+          }
+        ]
+      }
     </script>
   </head>
   <body>
+    <noscript>
+      <main>
+        <h1>Migração assistida da Nuvem Fiscal para o Invio</h1>
+        <p>Programa para SaaS, ERPs e plataformas que precisam migrar sua operação de NFS-e.</p>
+        <p>O processo inclui diagnóstico técnico, mapeamento, configuração de emitentes e certificados A1, homologação, planejamento da virada e acompanhamento em produção. O Invio não é afiliado à Nuvem Fiscal e não promete compatibilidade automática.</p>
+        <p>Consulte a <a href="/llms-full.txt">referência completa do produto</a> ou acesse o site com JavaScript habilitado.</p>
+      </main>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
