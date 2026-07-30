@@ -27,11 +27,11 @@ export function App() {
   useEffect(() => {
     const metadata = isRemote
       ? {
-          title: "Invio Remote — NFS-e para quem trabalha para o exterior",
-          description: "Emita e acompanhe NFS-e para clientes internacionais. Comece grátis com até 2 notas por mês e 1 emitente. Certificado A1 necessário.",
+          title: "Como emitir nota fiscal para cliente do exterior | Invio",
+          description: "Emita e acompanhe NFS-e para clientes no exterior. Plano grátis com até 2 notas por mês, 1 emitente e certificado A1.",
           url: "https://useinvio.com/remote",
           image: "https://useinvio.com/remote-og.png",
-          imageAlt: "Invio Remote — Seu trabalho é global",
+          imageAlt: "Invio Remote — NFS-e para clientes no exterior",
           twitterCard: "summary_large_image",
         }
       : isMigration
