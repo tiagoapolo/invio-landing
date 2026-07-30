@@ -19,6 +19,7 @@ test("homepage has the approved positioning and SEO metadata", async () => {
   assert.match(html, /Invio — API de NFS-e Nacional para SaaS e plataformas/);
   assert.match(html, /Emita e monitore NFS-e Nacional com API, webhooks/);
   assert.match(html, /https:\/\/useinvio\.com\//);
+  assert.match(html, /name="twitter:title"/);
   assert.match(page, /Integre uma vez\. Emita e monitore/);
   assert.match(page, /Descubra qual plano combina/);
   assert.match(page, /Montador de plano/);
@@ -35,6 +36,7 @@ test("migration page keeps factual, non-affiliated positioning", async () => {
 
   assert.match(html, /Migração da Nuvem Fiscal para o Invio/);
   assert.match(html, /Programa de migração assistida para SaaS, ERPs e plataformas/);
+  assert.match(html, /name="twitter:description"/);
   assert.match(page, /31 de julho de 2026/);
   assert.match(page, /não possui afiliação com a Nuvem Fiscal/);
   assert.match(page, /não prometemos compatibilidade automática/);
@@ -81,13 +83,39 @@ test("lead form requires persistence before showing success", async () => {
 });
 
 test("client routing corrects metadata when hosting falls back to the homepage", async () => {
-  const app = await read("../src/App.tsx");
+  const [app, analytics, main] = await Promise.all([
+    read("../src/App.tsx"),
+    read("../src/analytics.ts"),
+    read("../src/main.tsx"),
+  ]);
 
   assert.match(app, /document\.title = metadata\.title/);
   assert.match(app, /link\[rel=\"canonical\"\]/);
+  assert.match(app, /setMeta\("property", "og:image", metadata\.image\)/);
+  assert.match(app, /trackPageView\(metadata\.title\)/);
   assert.match(app, /migrar-da-nuvem-fiscal/);
   assert.match(app, /path === "\/remote"/);
   assert.match(app, /<RemotePage/);
+  assert.match(analytics, /G-K6BXVEHZKV/);
+  assert.match(analytics, /send_page_view: false/);
+  assert.match(analytics, /"page_view"/);
+  assert.match(main, /initializeAnalytics\(\)/);
+});
+
+test("forms track starts, attempts, successful leads and errors without personal data", async () => {
+  const [leadForm, planBuilder] = await Promise.all([
+    read("../src/components/LeadForm.tsx"),
+    read("../src/components/PlanBuilder.tsx"),
+  ]);
+
+  for (const form of [leadForm, planBuilder]) {
+    assert.match(form, /"form_start"/);
+    assert.match(form, /"form_submit"/);
+    assert.match(form, /"generate_lead"/);
+    assert.match(form, /"form_error"/);
+    assert.doesNotMatch(form, /trackEvent\([^\n]+email/);
+    assert.doesNotMatch(form, /trackEvent\([^\n]+phone/);
+  }
 });
 
 test("remote landing follows the product, SEO and transparency brief", async () => {
@@ -138,7 +166,7 @@ test("AI discovery files expose factual product context", async () => {
   assert.match(robots, /User-agent: GPTBot\nAllow: \//);
   assert.match(robots, /User-agent: OAI-SearchBot\nAllow: \//);
   assert.match(robots, /User-agent: ClaudeBot\nAllow: \//);
-  assert.match(sitemap, /<lastmod>2026-07-29<\/lastmod>/);
+  assert.match(sitemap, /<lastmod>2026-07-30<\/lastmod>/);
 });
 
 test("every public landing exposes linked AI context and valid entity schema", async () => {

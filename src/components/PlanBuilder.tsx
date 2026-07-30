@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
+import { trackEvent } from "../analytics";
 import { Icon, type IconName } from "./Icon";
 
 type PlanBuilderMode = "standard" | "migration";
@@ -110,6 +111,7 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState<Partial<Record<StepKey, string>>>({});
   const [leadState, setLeadState] = useState<LeadState>("idle");
+  const leadFormStarted = useRef(false);
   const showingResult = stepIndex === steps.length;
   const currentStep = steps[stepIndex];
   const selected = currentStep ? answers[currentStep.key] : undefined;
@@ -130,6 +132,9 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
     event.preventDefault();
     setLeadState("submitting");
 
+    const leadSource = mode === "migration" ? "migracao_nuvem_fiscal" : "homepage";
+    trackEvent("form_submit", { form_name: "plan_builder", lead_source: leadSource });
+
     const form = event.currentTarget;
     const payload = Object.fromEntries(new FormData(form));
 
@@ -146,7 +151,7 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           ...payload,
-          origin: mode === "migration" ? "migracao_nuvem_fiscal" : "homepage",
+          origin: leadSource,
           leadType: "plan_builder",
           recommendedPlan: mode === "migration" ? "Migração Assistida" : `Invio ${plan.name}`,
           monthlyPrice,
@@ -158,8 +163,15 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
 
       form.reset();
       setLeadState("success");
+      trackEvent("generate_lead", {
+        form_name: "plan_builder",
+        lead_source: leadSource,
+        currency: "BRL",
+        value: monthlyPrice,
+      });
     } catch {
       setLeadState("error");
+      trackEvent("form_error", { form_name: "plan_builder", lead_source: leadSource });
     }
   }
 
@@ -260,7 +272,18 @@ export function PlanBuilder({ mode = "standard" }: { mode?: PlanBuilderMode }) {
                 <p><strong>Contato recebido.</strong><small>O time da Invio entrará em contato sobre este plano.</small></p>
               </div>
             ) : (
-              <form className="plan-lead-form" onSubmit={submitLead}>
+              <form
+                className="plan-lead-form"
+                onSubmit={submitLead}
+                onFocus={() => {
+                  if (leadFormStarted.current) return;
+                  leadFormStarted.current = true;
+                  trackEvent("form_start", {
+                    form_name: "plan_builder",
+                    lead_source: mode === "migration" ? "migracao_nuvem_fiscal" : "homepage",
+                  });
+                }}
+              >
                 <div className="honeypot" aria-hidden="true">
                   <label>Não preencha<input name="website" tabIndex={-1} autoComplete="off" /></label>
                 </div>

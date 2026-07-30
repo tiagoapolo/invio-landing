@@ -6,8 +6,11 @@ Website público da Invio em React, Vite e TypeScript.
 
 - `/` — homepage permanente do produto.
 - `/migrar-da-nuvem-fiscal` — campanha de migração assistida.
+- `/remote` — NFS-e para profissionais que atendem clientes internacionais.
 
-As duas rotas possuem entradas HTML próprias para título, descrição, canonical e Open Graph. O app também atualiza os metadados no cliente para preservar o SEO quando a hospedagem usa fallback de SPA.
+As três rotas possuem entradas HTML próprias para título, descrição, canonical, Open Graph, Twitter Cards e dados estruturados. O app também atualiza os metadados no cliente para preservar o SEO quando a hospedagem usa fallback de SPA.
+
+O Google Analytics usa a propriedade `G-K6BXVEHZKV` e registra page views por rota, CTAs e conversões dos formulários sem enviar dados pessoais.
 
 ## Desenvolvimento
 
@@ -35,4 +38,4 @@ O endpoint de leads deve persistir os dados e responder com status `2xx`. O form
 
 ## Hospedagem
 
-Publique o diretório `dist` gerado pelo build. A plataforma deve servir `migrar-da-nuvem-fiscal/index.html` na rota limpa `/migrar-da-nuvem-fiscal` ou usar fallback para `index.html`; ambos os cenários são tratados pelo frontend.
+Publique o diretório `dist` gerado pelo build. A plataforma deve servir as entradas HTML de cada rota limpa ou usar fallback para `index.html`; ambos os cenários são tratados pelo frontend.

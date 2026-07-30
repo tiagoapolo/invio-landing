@@ -1,7 +1,23 @@
 import { useEffect } from "react";
+import { trackPageView } from "./analytics";
 import { HomePage } from "./pages/HomePage";
 import { MigrationPage } from "./pages/MigrationPage";
 import { RemotePage } from "./pages/RemotePage";
+
+function setMeta(attribute: "name" | "property", key: string, content: string) {
+  const selector = `meta[${attribute}="${key}"]`;
+  const existing = document.querySelector(selector);
+
+  if (!content) {
+    existing?.remove();
+    return;
+  }
+
+  const meta = existing || document.createElement("meta");
+  meta.setAttribute(attribute, key);
+  meta.setAttribute("content", content);
+  if (!existing) document.head.append(meta);
+}
 
 export function App() {
   const path = window.location.pathname.replace(/\/$/, "") || "/";
@@ -15,6 +31,8 @@ export function App() {
           description: "Emita e acompanhe NFS-e para clientes internacionais. Comece grátis com até 2 notas por mês e 1 emitente. Certificado A1 necessário.",
           url: "https://useinvio.com/remote",
           image: "https://useinvio.com/remote-og.png",
+          imageAlt: "Invio Remote — Seu trabalho é global",
+          twitterCard: "summary_large_image",
         }
       : isMigration
       ? {
@@ -22,23 +40,33 @@ export function App() {
           description: "Programa de migração assistida para SaaS, ERPs e plataformas que utilizavam a API da Nuvem Fiscal.",
           url: "https://useinvio.com/migrar-da-nuvem-fiscal",
           image: "",
+          imageAlt: "",
+          twitterCard: "summary",
         }
       : {
           title: "Invio — API de NFS-e Nacional para SaaS e plataformas",
           description: "Emita e monitore NFS-e Nacional com API, webhooks, múltiplos emitentes e acompanhamento operacional.",
           url: "https://useinvio.com/",
           image: "",
+          imageAlt: "",
+          twitterCard: "summary",
         };
 
     document.title = metadata.title;
-    document.querySelector('meta[name="description"]')?.setAttribute("content", metadata.description);
-    document.querySelector('meta[property="og:title"]')?.setAttribute("content", metadata.title);
-    document.querySelector('meta[property="og:description"]')?.setAttribute("content", metadata.description);
-    document.querySelector('meta[property="og:url"]')?.setAttribute("content", metadata.url);
-    if (metadata.image) document.querySelector('meta[property="og:image"]')?.setAttribute("content", metadata.image);
-    document.querySelector('meta[name="twitter:title"]')?.setAttribute("content", metadata.title);
-    document.querySelector('meta[name="twitter:description"]')?.setAttribute("content", metadata.description);
+    setMeta("name", "description", metadata.description);
+    setMeta("property", "og:title", metadata.title);
+    setMeta("property", "og:description", metadata.description);
+    setMeta("property", "og:url", metadata.url);
+    setMeta("property", "og:image", metadata.image);
+    setMeta("property", "og:image:width", metadata.image ? "1200" : "");
+    setMeta("property", "og:image:height", metadata.image ? "630" : "");
+    setMeta("property", "og:image:alt", metadata.imageAlt);
+    setMeta("name", "twitter:card", metadata.twitterCard);
+    setMeta("name", "twitter:title", metadata.title);
+    setMeta("name", "twitter:description", metadata.description);
+    setMeta("name", "twitter:image", metadata.image);
     document.querySelector('link[rel="canonical"]')?.setAttribute("href", metadata.url);
+    trackPageView(metadata.title);
   }, [isMigration, isRemote]);
 
   if (isRemote) {

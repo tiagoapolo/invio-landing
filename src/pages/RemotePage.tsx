@@ -58,7 +58,7 @@ const faqs = [
 
 function SignupCta({ location, className = "button button-primary", children }: { location: string; className?: string; children: ReactNode }) {
   return (
-    <a className={className} href={appUrl} onClick={() => trackMarketingCta("remote_signup_click", location)}>
+    <a className={className} href={appUrl} target="_blank" onClick={() => trackMarketingCta("remote_signup_click", location)}>
       {children}
     </a>
   );

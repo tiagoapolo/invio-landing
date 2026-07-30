@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
+import { trackEvent } from "../analytics";
 import { Icon } from "./Icon";
 
 type LeadOrigin = "homepage" | "migracao_nuvem_fiscal";
@@ -6,10 +7,18 @@ type FormState = "idle" | "submitting" | "success" | "error";
 
 export function LeadForm({ origin }: { origin: LeadOrigin }) {
   const [state, setState] = useState<FormState>("idle");
+  const started = useRef(false);
+
+  const trackFormStart = () => {
+    if (started.current) return;
+    started.current = true;
+    trackEvent("form_start", { form_name: "lead_form", lead_source: origin });
+  };
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setState("submitting");
+    trackEvent("form_submit", { form_name: "lead_form", lead_source: origin });
 
     const form = event.currentTarget;
     const payload = Object.fromEntries(new FormData(form));
@@ -32,8 +41,10 @@ export function LeadForm({ origin }: { origin: LeadOrigin }) {
 
       form.reset();
       setState("success");
+      trackEvent("generate_lead", { form_name: "lead_form", lead_source: origin });
     } catch {
       setState("error");
+      trackEvent("form_error", { form_name: "lead_form", lead_source: origin });
     }
   }
 
@@ -50,7 +61,7 @@ export function LeadForm({ origin }: { origin: LeadOrigin }) {
   }
 
   return (
-    <form className="lead-form" onSubmit={submit}>
+    <form className="lead-form" onSubmit={submit} onFocus={trackFormStart}>
       <div className="honeypot" aria-hidden="true">
         <label>Não preencha<input name="address" tabIndex={-1} autoComplete="off" /></label>
       </div>
