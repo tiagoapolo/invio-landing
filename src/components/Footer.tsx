@@ -1,6 +1,7 @@
 import { Brand } from "./Brand";
 
 const appUrl = import.meta.env.VITE_APP_URL || "https://app.useinvio.com";
+const whatsappUrl = "https://wa.me/5541999735882";
 
 export function Footer({ remote = false }: { remote?: boolean }) {
   return (
@@ -32,14 +33,14 @@ export function Footer({ remote = false }: { remote?: boolean }) {
           <a href="/remote">Invio Remote</a>
           {!remote && <a href="/migrar-da-nuvem-fiscal">Migração Nuvem Fiscal</a>}
           <a href={remote ? appUrl : `${appUrl}/login`}>Entrar no app</a>
-          {remote && <a href="https://useinvio.com/#contato">Fale com a Invio</a>}
+          {remote && <a href={whatsappUrl}>Fale com a Invio</a>}
         </div>
       </div>
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} Invio.</span>
         {remote ? (
           <div className="footer-legal-links">
-            <a href="https://useinvio.com/#contato">Contato</a>
+            <a href={whatsappUrl}>Contato</a>
             {/* TODO: Add verified legal name, CNPJ, terms and privacy links when the public pages are available. */}
           </div>
         ) : <span>NFS-e Nacional, da integração à operação.</span>}

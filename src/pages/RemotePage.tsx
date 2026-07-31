@@ -5,7 +5,7 @@ import { Header } from "../components/Header";
 import { Icon, type IconName } from "../components/Icon";
 
 const appUrl = "https://app.useinvio.com";
-const contactUrl = "https://useinvio.com/#contato";
+const contactUrl = "https://wa.me/5541999735882";
 
 const internationalPains = [
   "Cadastrar um tomador estrangeiro, sem CNPJ ou CPF brasileiro",
@@ -309,7 +309,7 @@ export function RemotePage() {
           <div className="container remote-transparency-layout">
             <div className="remote-section-heading">
               <p className="remote-eyebrow">Transparência</p>
-              <h2>O que a Invio faz — e o que continua com você.</h2>
+              <h2>O que a Invio faz e o que fica com você.</h2>
               <p>Você emite e acompanha a NFS-e. Pagamento, câmbio e decisões tributárias ficam fora do produto.</p>
             </div>
             <div className="remote-transparency-list">

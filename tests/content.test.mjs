@@ -195,11 +195,14 @@ test("remote landing follows the product, SEO and transparency brief", async () 
   assert.match(page, /Certificado digital A1 necessário/);
   assert.match(page, /A Invio não recebe pagamentos nem faz câmbio/);
   assert.match(page, /A Invio não substitui seu contador/);
+  assert.match(page, /O que a Invio faz e o que fica com você/);
   assert.match(page, /https:\/\/app\.useinvio\.com/);
+  assert.match(page, /https:\/\/wa\.me\/5541999735882/);
   assert.match(page, /remote_signup_click/);
   assert.match(home, /href="\/remote"/);
   assert.match(footer, /href="\/remote">Invio Remote/);
   assert.match(footer, /Fale com a Invio/);
+  assert.match(footer, /https:\/\/wa\.me\/5541999735882/);
   assert.match(sitemap, /https:\/\/useinvio\.com\/remote/);
   assert.match(analytics, /dataLayer/);
   assert.doesNotMatch(page, /redução de impostos|receba pagamentos|câmbio automático/i);
