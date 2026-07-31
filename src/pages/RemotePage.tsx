@@ -10,7 +10,7 @@ const contactUrl = "https://useinvio.com/#contato";
 const internationalPains = [
   "Cadastrar um tomador estrangeiro, sem CNPJ ou CPF brasileiro",
   "Preencher país e endereço do cliente nos campos da nota",
-  "Entender como declarar um serviço recebido em dólar ou euro",
+  "Definir com o contador como informar em reais um serviço pago em dólar ou euro",
   "Confirmar o código de serviço e o tratamento de ISS com seu contador",
   "Descobrir o motivo quando a prefeitura rejeita a emissão",
   "Refazer o mesmo preenchimento para o mesmo cliente todo mês",
@@ -175,13 +175,13 @@ export function RemotePage() {
         <section className="remote-problem section">
           <div className="container remote-problem-layout">
             <div className="remote-section-heading">
-              <p className="remote-eyebrow">A nota para o exterior</p>
-              <h2>Emitir nota para fora não deveria ser a parte mais difícil do trabalho.</h2>
-              <p>Os portais fiscais falam a língua da prefeitura. Você só precisa registrar o serviço que prestou e seguir a orientação do seu contador.</p>
+              <p className="remote-eyebrow">O processo hoje</p>
+              <h2>Emitir nota para um cliente no exterior ainda exige lidar com várias etapas.</h2>
+              <p>Na prática, muitos profissionais enfrentam hoje este processo nos portais fiscais: reunir os dados do cliente, preencher as exigências da nota, alinhar o tratamento tributário com o contador e corrigir eventuais rejeições.</p>
             </div>
             <ul className="remote-pain-list">
               {internationalPains.map((pain, index) => (
-                <li key={pain}><span>{String(index + 1).padStart(2, "0")}</span><strong>{pain}</strong><Icon name="arrow" size={17} /></li>
+                <li key={pain}><span>{String(index + 1).padStart(2, "0")}</span><strong>{pain}</strong></li>
               ))}
             </ul>
           </div>

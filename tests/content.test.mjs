@@ -179,6 +179,10 @@ test("remote landing follows the product, SEO and transparency brief", async () 
   assert.match(page, /Emita NFS-e para/);
   assert.match(page, /no exterior/);
   assert.match(page, /sem depender/);
+  assert.match(page, /O processo hoje/);
+  assert.match(page, /muitos profissionais enfrentam hoje este processo nos portais fiscais/);
+  assert.match(page, /informar em reais um serviço pago em dólar ou euro/);
+  assert.doesNotMatch(page, /key=\{pain\}[^\n]+Icon name="arrow"/);
   assert.match(page, /Criar conta grátis/);
   assert.match(page, /Grátis até 2 notas por mês/);
   assert.match(page, /arquivo no formato <strong>\.pfx/);

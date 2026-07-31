@@ -3053,10 +3053,9 @@ nav a:focus-visible {
 .remote-problem .remote-section-heading > p:not(.remote-eyebrow) { color: #a9adba; }
 .remote-problem .remote-eyebrow { color: #ff9b86; }
 .remote-pain-list { margin: 0; padding: 0; border-top: 1px solid #383d52; list-style: none; }
-.remote-pain-list li { min-height: 82px; display: grid; grid-template-columns: 42px 1fr 24px; align-items: center; gap: 13px; border-bottom: 1px solid #383d52; }
+.remote-pain-list li { min-height: 82px; display: grid; grid-template-columns: 42px 1fr; align-items: center; gap: 13px; border-bottom: 1px solid #383d52; }
 .remote-pain-list span { color: #aeb3c2; font-family: var(--font-mono); font-size: 14px; }
 .remote-pain-list strong { font-size: 15px; font-weight: 580; }
-.remote-pain-list svg { color: #ff9b86; }
 
 .remote-how { border-top: 1px solid #e9e6e0; background: var(--remote-cream); }
 .remote-step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
