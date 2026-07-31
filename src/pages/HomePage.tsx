@@ -197,12 +197,30 @@ export function HomePage() {
               <p className="eyebrow">Para operações digitais</p>
               <h2>Infraestrutura fiscal para quem precisa <em>embutir emissão no produto.</em></h2>
               <p>O Invio é direcionado a empresas que conectam a emissão ao billing, pagamento ou fechamento financeiro.</p>
-              <a className="text-link" href="/remote">NFS-e para quem trabalha para o exterior <Icon name="arrow" size={16} /></a>
             </div>
             <div className="audience-cards">
               {audiences.map(([title, text], index) => (
                 <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{text}</p></article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="remote-promo-section" aria-labelledby="remote-promo-title">
+          <div className="container remote-promo-layout">
+            <div className="remote-promo-copy">
+              <p><span>Invio</span> Remote</p>
+              <h2 id="remote-promo-title">Trabalha para o exterior? Emita sua NFS-e sem depender do portal da prefeitura.</h2>
+              <p>Cadastre seu CNPJ e o certificado A1 uma vez. Depois, emita notas para clientes internacionais, acompanhe o status e baixe o XML no mesmo painel.</p>
+              <a className="button remote-promo-button" href="/remote">Conhecer o Invio Remote <Icon name="arrow" size={17} /></a>
+            </div>
+            <div className="remote-promo-card" aria-hidden="true">
+              <div className="remote-promo-card-head"><span><i /><i /><i /></span><small>Invio Remote</small></div>
+              <div className="remote-promo-card-body">
+                <div><small>Última emissão</small><strong>NFS-e 0042</strong></div>
+                <span><Icon name="check" size={16} /> Autorizada</span>
+              </div>
+              <div className="remote-promo-card-footer"><span>Cliente internacional</span><strong>XML disponível ↓</strong></div>
             </div>
           </div>
         </section>

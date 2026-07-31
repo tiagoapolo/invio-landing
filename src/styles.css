@@ -1166,6 +1166,164 @@ nav a:focus-visible {
   line-height: 1.65;
 }
 
+.remote-promo-section {
+  padding-block: 30px;
+  color: white;
+  background: #12182b;
+}
+
+.remote-promo-layout {
+  min-height: 360px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 72px;
+  padding-block: 54px;
+}
+
+.remote-promo-copy > p:first-child {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 17px;
+  color: #ff9b86;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.remote-promo-copy > p:first-child span {
+  color: white;
+}
+
+.remote-promo-copy h2 {
+  max-width: 710px;
+  margin: 0;
+  font-size: clamp(36px, 3.5vw, 50px);
+  font-weight: 630;
+  letter-spacing: -0.047em;
+  line-height: 1.04;
+}
+
+.remote-promo-copy > p:nth-of-type(2) {
+  max-width: 660px;
+  margin: 20px 0 0;
+  color: #b8bbc7;
+  font-size: 16px;
+  line-height: 1.68;
+}
+
+.remote-promo-button {
+  margin-top: 28px;
+  color: white;
+  background: #b94732;
+  box-shadow: 0 12px 28px rgba(185, 71, 50, 0.25);
+}
+
+.remote-promo-button:hover {
+  background: #9e3828;
+  box-shadow: 0 16px 34px rgba(185, 71, 50, 0.3);
+}
+
+.remote-promo-card {
+  overflow: hidden;
+  color: var(--ink);
+  border: 1px solid #41465a;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 30px 70px rgba(5, 8, 20, 0.28);
+  transform: rotate(1.5deg);
+}
+
+.remote-promo-card-head {
+  min-height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 17px;
+  color: #969baa;
+  background: #f5f5f7;
+}
+
+.remote-promo-card-head > span {
+  display: flex;
+  gap: 6px;
+}
+
+.remote-promo-card-head i {
+  width: 7px;
+  height: 7px;
+  display: block;
+  border-radius: 50%;
+  background: #c4c7d0;
+}
+
+.remote-promo-card-head i:first-child {
+  background: #ed765d;
+}
+
+.remote-promo-card-head small {
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.remote-promo-card-body {
+  min-height: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px;
+}
+
+.remote-promo-card-body > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.remote-promo-card-body small {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.remote-promo-card-body strong {
+  font-size: 24px;
+  letter-spacing: -0.03em;
+}
+
+.remote-promo-card-body > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 11px;
+  color: var(--green);
+  border-radius: 8px;
+  background: var(--green-soft);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.remote-promo-card-footer {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-inline: 28px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.remote-promo-card-footer strong {
+  color: var(--primary-dark);
+}
+
 .comparison-section {
   border-block: 1px solid var(--line);
   background: var(--canvas);
@@ -2760,6 +2918,7 @@ nav a:focus-visible {
   .product-visual { width: 100%; }
   .problem-layout,
   .audience-layout { gap: 60px; }
+  .remote-promo-layout { gap: 45px; }
   .developer-layout,
   .contact-layout,
   .migration-process-layout { gap: 60px; }
@@ -2792,6 +2951,7 @@ nav a:focus-visible {
   .migration-hero-layout,
   .problem-layout,
   .audience-layout,
+  .remote-promo-layout,
   .developer-layout,
   .contact-layout,
   .migration-process-layout {
@@ -2876,6 +3036,10 @@ nav a:focus-visible {
   .audience-cards { grid-template-columns: 1fr; }
   .audience-cards article { min-height: 210px; }
   .audience-cards h3 { margin-top: 45px; }
+  .remote-promo-section { padding-block: 0; }
+  .remote-promo-layout { gap: 42px; padding-block: 66px; }
+  .remote-promo-copy h2 { font-size: 39px; }
+  .remote-promo-card { width: min(520px, 100%); transform: none; }
   .comparison-row > span { min-height: 76px; padding-inline: 13px; font-size: 14px; }
   .comparison-row i { width: 21px; height: 21px; }
   .developer-layout { gap: 44px; }
