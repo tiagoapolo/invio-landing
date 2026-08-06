@@ -106,21 +106,17 @@ export function ApiDocsPage() {
               <p className="eyebrow"><span /> Referência técnica · API v1</p>
               <h1>Integre a NFS-e com contexto, previsibilidade e segurança.</h1>
               <p>Da primeira consulta ao acompanhamento da emissão: contratos, estados, erros e webhooks explicados a partir do comportamento real da API.</p>
+              <a className="api-docs-assistant" href="https://chatgpt.com/g/g-6a7492a961148191b0ae637b64f478d1-invio-api-assistente" target="_blank" rel="noreferrer">
+                <span className="api-docs-assistant-icon" aria-hidden="true">✦</span>
+                <span><strong>Fale com o Invio API Assistente</strong><small>Tire dúvidas sobre endpoints, SEFIN, SDK e fluxos de integração.</small></span>
+                <span className="api-docs-assistant-arrow" aria-hidden="true">↗</span>
+              </a>
             </div>
-            <div className="api-docs-hero-aside">
-              <dl className="api-docs-facts">
-                <div><dt>Protocolo</dt><dd>REST · JSON</dd></div>
-                <div><dt>Autenticação</dt><dd>Bearer token</dd></div>
-                <div><dt>Ambientes</dt><dd>restrita · producao</dd></div>
-              </dl>
-              <div className="api-docs-assistant">
-                <strong>Dúvidas sobre a documentação?</strong>
-                <p>Converse sobre endpoints, SEFIN, SDK e fluxos de integração.</p>
-                <a href="https://chatgpt.com/g/g-6a7492a961148191b0ae637b64f478d1-invio-api-assistente" target="_blank" rel="noreferrer">
-                  Fale com o Invio API Assistente <span aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </div>
+            <dl className="api-docs-facts">
+              <div><dt>Protocolo</dt><dd>REST · JSON</dd></div>
+              <div><dt>Autenticação</dt><dd>Bearer token</dd></div>
+              <div><dt>Ambientes</dt><dd>restrita · producao</dd></div>
+            </dl>
           </div>
         </section>
 

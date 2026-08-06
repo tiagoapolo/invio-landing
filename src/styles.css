@@ -3336,12 +3336,13 @@ nav a:focus-visible {
 .api-docs-facts div { display: flex; justify-content: space-between; gap: 24px; padding: 14px 0; border-bottom: 1px solid #3c4259; }
 .api-docs-facts dt { color: #8f95a9; font-size: 13px; }
 .api-docs-facts dd { margin: 0; color: #f3f4ff; font-family: var(--font-mono); font-size: 12px; }
-.api-docs-assistant { margin-top: 20px; padding: 17px; border: 1px solid #3c4259; border-radius: 8px; background: #171c2f; }
-.api-docs-assistant strong { display: block; font-size: 13px; }
-.api-docs-assistant p { margin: 7px 0 14px; color: #aeb3c4; font-size: 12px; line-height: 1.5; }
-.api-docs-assistant a { display: inline-flex; align-items: center; gap: 7px; color: #b6b5ff; font-size: 12px; font-weight: 750; }
-.api-docs-assistant a:hover { color: white; }
-.api-docs-assistant a:focus-visible { outline: 2px solid #9d9cff; outline-offset: 4px; }
+.api-docs-assistant { width: min(590px, 100%); display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 14px; margin-top: 30px; padding: 14px 16px; color: white; border: 1px solid #7878e8; border-radius: 9px; background: var(--primary); box-shadow: 0 14px 34px rgba(82, 82, 213, 0.28); transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease; }
+.api-docs-assistant:hover { color: white; background: var(--primary-dark); box-shadow: 0 18px 40px rgba(82, 82, 213, 0.36); transform: translateY(-2px); }
+.api-docs-assistant:focus-visible { outline: 3px solid #b8b7ff; outline-offset: 4px; }
+.api-docs-assistant-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 7px; background: rgba(255, 255, 255, 0.14); font-size: 19px; }
+.api-docs-assistant strong { display: block; font-size: 14px; }
+.api-docs-assistant small { display: block; margin-top: 3px; color: #e3e3ff; font-size: 11px; line-height: 1.4; }
+.api-docs-assistant-arrow { padding-left: 8px; font-size: 18px; }
 .api-docs-shell { display: grid; grid-template-columns: 220px minmax(0, 820px); justify-content: space-between; align-items: start; gap: 88px; }
 .api-docs-sidebar { position: sticky; top: 98px; margin: 54px 0; padding-right: 28px; border-right: 1px solid var(--line); }
 .api-docs-sidebar > strong { display: block; margin-bottom: 13px; color: var(--ink); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; }
