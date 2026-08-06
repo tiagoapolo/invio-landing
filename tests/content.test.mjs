@@ -257,6 +257,78 @@ test("remote landing follows the product, SEO and transparency brief", async () 
   assert.doesNotMatch(page, /criptograf|armazenado com segurança|acesso restrito/i);
 });
 
+test("public lookup pages are routed, linked and indexable", async () => {
+  const [app, registry, page, table, header, footer, sitemap] = await Promise.all([
+    read("../src/App.tsx"),
+    read("../src/data/consulta.ts"),
+    read("../src/pages/ConsultaPage.tsx"),
+    read("../src/components/consulta/ConsultaTable.tsx"),
+    read("../src/components/Header.tsx"),
+    read("../src/components/Footer.tsx"),
+    read("../public/sitemap.xml"),
+  ]);
+
+  assert.match(app, /matchConsulta/);
+  assert.match(app, /<ConsultaPage/);
+  assert.match(registry, /lc116:/);
+  assert.match(registry, /nbs:/);
+  assert.match(registry, /"codigo-municipio":/);
+  assert.match(registry, /cTribNac/);
+  assert.match(registry, /cNBS/);
+  assert.match(registry, /cLocPrestacao/);
+  // Cada tabela é carregada sob demanda para não entrar no bundle da homepage.
+  assert.match(registry, /await import\("\.\/lc116"\)/);
+  assert.match(registry, /await import\("\.\/nbs"\)/);
+  assert.match(registry, /await import\("\.\/municipalities"\)/);
+  assert.match(page, /consulta-switch/);
+  assert.match(page, /aria-current=\{item\.slug === dataset\.slug \? "page" : undefined\}/);
+  assert.match(page, /não substitui a orientação do seu/);
+  assert.match(table, /searchEntries/);
+  assert.match(table, /navigator\.clipboard\.writeText/);
+  assert.match(header, /href="\/consulta\/lc116"[^>]*>Consultas/);
+  assert.match(footer, /href="\/consulta\/lc116">Tabela LC 116\/2003/);
+  assert.match(footer, /href="\/consulta\/nbs">Tabela NBS/);
+  assert.match(footer, /href="\/consulta\/codigo-municipio">Código IBGE de município/);
+
+  for (const slug of ["lc116", "nbs", "codigo-municipio"]) {
+    assert.match(sitemap, new RegExp(`https://useinvio\\.com/consulta/${slug}`));
+  }
+});
+
+test("header anchors resolve from every route", async () => {
+  const header = await read("../src/components/Header.tsx");
+
+  // Fora da homepage as seções âncora não existem: sem o prefixo "/" o clique não faz nada.
+  assert.match(header, /const prefix = isHome \? "" : "\/"/);
+  assert.match(header, /href=\{`\$\{prefix\}#produto`\}/);
+  assert.match(header, /href=\{`\$\{planPrefix\}#montar-plano`\}/);
+  assert.match(header, /\$\{prefix\}#contato/);
+  assert.doesNotMatch(header, /href="#montar-plano"/);
+  assert.doesNotMatch(header, /: "#contato"/);
+});
+
+test("lookup data matches the volumes the pages claim", async () => {
+  const [lc116, nbs, municipalities, registry] = await Promise.all([
+    read("../src/data/lc116.ts"),
+    read("../src/data/nbs.ts"),
+    read("../src/data/municipalities.ts"),
+    read("../src/data/consulta.ts"),
+  ]);
+
+  const entries = (source) => (source.match(/\{ code: /g) || []).length;
+  const municipalityRows = municipalities.slice(municipalities.indexOf("const RAW = `")).split("\n").length - 1;
+
+  assert.equal(entries(lc116), 199);
+  assert.equal(entries(nbs), 920);
+  assert.equal(municipalityRows, 5571);
+  assert.match(registry, /920 códigos de nível-folha/);
+  assert.match(registry, /5\.571 municípios/);
+  // O placeholder precisa devolver resultados: é o primeiro teste que o visitante faz.
+  assert.match(lc116, /programas de computação/);
+  assert.match(nbs, /programas de computador/);
+  assert.match(municipalities, /4106902\|Curitiba\|PR/);
+});
+
 test("AI discovery files expose factual product context", async () => {
   const [summary, full, robots, sitemap] = await Promise.all([
     read("../public/llms.txt"),
@@ -276,6 +348,10 @@ test("AI discovery files expose factual product context", async () => {
   assert.match(robots, /User-agent: OAI-SearchBot\nAllow: \//);
   assert.match(robots, /User-agent: ClaudeBot\nAllow: \//);
   assert.match(sitemap, /<lastmod>2026-07-30<\/lastmod>/);
+  assert.match(summary, /https:\/\/useinvio\.com\/consulta\/lc116/);
+  assert.match(full, /https:\/\/useinvio\.com\/consulta\/codigo-municipio/);
+  assert.match(full, /no account, no login/);
+  assert.match(full, /not accounting advice/);
 });
 
 test("every public landing exposes linked AI context and valid entity schema", async () => {
@@ -283,6 +359,9 @@ test("every public landing exposes linked AI context and valid entity schema", a
     read("../index.html"),
     read("../remote/index.html"),
     read("../migrar-da-nuvem-fiscal/index.html"),
+    read("../consulta/lc116/index.html"),
+    read("../consulta/nbs/index.html"),
+    read("../consulta/codigo-municipio/index.html"),
   ]);
 
   for (const html of pages) {
@@ -294,5 +373,39 @@ test("every public landing exposes linked AI context and valid entity schema", a
     assert.ok(Array.isArray(schema["@graph"]));
     assert.ok(schema["@graph"].some((entity) => entity["@type"] === "Organization"));
     assert.ok(schema["@graph"].some((entity) => entity["@type"] === "WebPage"));
+  }
+});
+
+test("each lookup entry point declares its own canonical, dataset and breadcrumb", async () => {
+  const routes = [
+    ["lc116", "https://useinvio.com/consulta/lc116"],
+    ["nbs", "https://useinvio.com/consulta/nbs"],
+    ["codigo-municipio", "https://useinvio.com/consulta/codigo-municipio"],
+  ];
+
+  for (const [slug, url] of routes) {
+    const html = await read(`../consulta/${slug}/index.html`);
+    const graph = structuredData(html)["@graph"];
+
+    assert.match(html, new RegExp(`<link rel="canonical" href="${url}" />`));
+    assert.match(html, /<meta name="robots" content="index, follow" \/>/);
+
+    const dataset = graph.find((entity) => entity["@type"] === "Dataset");
+    assert.ok(dataset, `${slug} precisa de um Dataset no JSON-LD`);
+    assert.equal(dataset.url, url);
+    assert.equal(dataset.isAccessibleForFree, true);
+
+    const webpage = graph.find((entity) => entity["@type"] === "WebPage");
+    assert.equal(webpage.url, url);
+    assert.equal(webpage.breadcrumb["@type"], "BreadcrumbList");
+    assert.equal(webpage.breadcrumb.itemListElement.at(-1).item, url);
+
+    const faq = graph.find((entity) => entity["@type"] === "FAQPage");
+    assert.ok(faq.mainEntity.length >= 3);
+
+    // As outras consultas ficam alcançáveis mesmo sem JavaScript.
+    for (const [other] of routes.filter(([candidate]) => candidate !== slug)) {
+      assert.match(html, new RegExp(`href="/consulta/${other}"`));
+    }
   }
 });

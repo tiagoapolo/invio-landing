@@ -7,7 +7,12 @@ const appUrl = import.meta.env.VITE_APP_URL || "https://app.useinvio.com";
 
 export function Header({ migration = false, remote = false }: { migration?: boolean; remote?: boolean }) {
   const [open, setOpen] = useState(false);
-  const prefix = migration ? "/" : "";
+  // As seções âncora do menu vivem na homepage. Fora dela, o link precisa ir para
+  // "/" antes do fragmento, senão a âncora não existe e o clique não faz nada.
+  const isHome = typeof window !== "undefined" && window.location.pathname.replace(/\/$/, "") === "";
+  const prefix = isHome ? "" : "/";
+  // A página de migração tem a própria seção #montar-plano e resolve a âncora localmente.
+  const planPrefix = migration ? "" : prefix;
 
   const close = () => setOpen(false);
 
@@ -44,14 +49,14 @@ export function Header({ migration = false, remote = false }: { migration?: bool
               <a href="/api" onClick={close}>Documentação</a>
               <a href="/consulta/lc116" onClick={close}>Consultas</a>
               <a href="/remote" onClick={close}>Remote</a>
-              <a href="#montar-plano" onClick={close}>Planos</a>
+              <a href={`${planPrefix}#montar-plano`} onClick={close}>Planos</a>
             </nav>
           )}
           <div className="header-actions">
             <a className="login-link" href={remote ? appUrl : `${appUrl}/login`}>Entrar</a>
             <a
               className="button button-primary button-small"
-              href={remote ? appUrl : migration ? "#montar-plano" : "#contato"}
+              href={remote ? appUrl : migration ? `${planPrefix}#montar-plano` : `${prefix}#contato`}
               onClick={() => {
                 close();
                 if (remote) trackMarketingCta("remote_signup_click", "header");

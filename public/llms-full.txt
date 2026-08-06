@@ -123,12 +123,28 @@ The migration process covers:
 
 Invio does not promise automatic API compatibility or a generic migration timeline. Requirements and timing depend on the technical assessment. The public Nuvem Fiscal website announced service closure for 31 July 2026; consult that company's official source for the current status.
 
+## Free public lookup tables
+
+Invio publishes the reference tables that NFS-e Nacional fields depend on as free public pages. They require no account, no login, and no payment, and they reproduce the official sources cited on each page. They are reference material, not accounting advice: choosing the right classification for a given service remains a decision for the taxpayer and their accountant.
+
+LC 116/2003 service list — https://useinvio.com/consulta/lc116
+The 199 items and subitems of the service list annexed to Complementary Law 116/2003, each with the corresponding national taxation code. In NFS-e Nacional the item becomes a 6-digit cTribNac code formed by item (2 digits), subitem (2 digits), and breakdown (2 digits): item 1.05 is transmitted as 010501. The law defines the national list of ISS-liable services; municipalities still set their own ISS rates and may keep a separate municipal service code.
+
+NBS 2.0 table — https://useinvio.com/consulta/nbs
+The 920 leaf-level codes of the Brazilian Nomenclature of Services, Intangibles and other Operations that Produce Variations in Equity, established by Decree 7.708/2012 and published by MDIC. NFS-e Nacional carries it in the cNBS field, which accepts only 9-digit leaf codes; the chapter, position, and subposition aggregators of the official table are organizational and cannot be transmitted.
+
+IBGE municipality codes — https://useinvio.com/consulta/codigo-municipio
+The 7-digit IBGE code, name, and state of all 5,571 Brazilian municipalities, sourced from IBGE's public localities API. The NFS-e Nacional layout does not accept a city name: the same code identifies the issuing municipality (cLocEmi), the municipality where the service was provided (cLocPrestacao), and the municipality in the addresses of the parties (cMun). It is not necessarily the same as an internal code used by a municipal system.
+
 ## Official URLs
 
 - Main website: https://useinvio.com/
 - API documentation: https://useinvio.com/api
 - Invio Remote: https://useinvio.com/remote
 - Assisted migration: https://useinvio.com/migrar-da-nuvem-fiscal
+- LC 116/2003 lookup: https://useinvio.com/consulta/lc116
+- NBS 2.0 lookup: https://useinvio.com/consulta/nbs
+- IBGE municipality code lookup: https://useinvio.com/consulta/codigo-municipio
 - Application: https://app.useinvio.com/
 - Sitemap: https://useinvio.com/sitemap.xml
 - AI summary: https://useinvio.com/llms.txt

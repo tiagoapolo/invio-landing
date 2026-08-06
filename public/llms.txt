@@ -11,6 +11,14 @@ Invio centralizes NFS-e issuance through an API and operational dashboard. Confi
 - [Invio Remote](https://useinvio.com/remote): NFS-e issuance for Brazilian professionals and companies serving international clients. The free plan includes up to 2 invoices per month and 1 issuer; a valid A1 certificate is required.
 - [Migration from Nuvem Fiscal](https://useinvio.com/migrar-da-nuvem-fiscal): Assisted migration program covering technical assessment, mapping, issuer and certificate configuration, testing, cutover planning, and production monitoring. Invio is not affiliated with Nuvem Fiscal.
 
+## Free public lookup tables
+
+These pages are open to anyone, with no account or login, and reproduce official Brazilian reference tables used by NFS-e Nacional fields.
+
+- [LC 116/2003 service list](https://useinvio.com/consulta/lc116): The 199 service items of Complementary Law 116/2003 with the 6-digit national taxation code (cTribNac). Item 1.05 is sent as 010501.
+- [NBS 2.0 table](https://useinvio.com/consulta/nbs): The 920 leaf-level codes of the Brazilian Nomenclature of Services, used in the cNBS field. Only 9-digit leaf codes are valid values.
+- [IBGE municipality codes](https://useinvio.com/consulta/codigo-municipio): The 7-digit IBGE code, name, and state of all 5,571 Brazilian municipalities, required by the cLocEmi, cLocPrestacao, and cMun fields.
+
 ## Detailed reference
 
 - [Complete product and FAQ reference](https://useinvio.com/llms-full.txt)
