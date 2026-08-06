@@ -34,6 +34,12 @@ const steps: Array<{ icon: IconName; title: string; text: string }> = [
   },
 ];
 
+const savedData: Array<{ icon: IconName; title: string; text: string }> = [
+  { icon: "users", title: "O cliente do exterior", text: "Nome, país e endereço do tomador ficam salvos depois do primeiro cadastro." },
+  { icon: "document", title: "A descrição do serviço", text: "Descrição, código do serviço e o texto que você já usou voltam preenchidos." },
+  { icon: "building", title: "O emitente e o perfil fiscal", text: "O CNPJ, o certificado e a configuração alinhada com seu contador continuam ali." },
+];
+
 const freeFeatures = [
   "Até 2 NFS-e por mês",
   "1 emitente",
@@ -53,6 +59,10 @@ const faqs = [
   [
     "Como emitir nota fiscal para cliente do exterior?",
     "Cadastre o CNPJ emitente e o perfil do serviço, associe um certificado A1 válido e crie a NFS-e para o cliente estrangeiro. Os dados fiscais e o tratamento tributário devem seguir a orientação do seu contador.",
+  ],
+  [
+    "Preciso preencher tudo de novo a cada nota?",
+    "Não. Os dados do cliente estrangeiro, do serviço e do emitente ficam salvos como modelo. Na emissão seguinte você abre o modelo, revisa o que mudou — como o valor do mês — e emite.",
   ],
   ["O plano grátis é realmente gratuito?", "Sim. Ele permite emitir até 2 NFS-e por mês com 1 emitente."],
   [
@@ -202,6 +212,61 @@ export function RemotePage() {
                   <p>{step.text}</p>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="remote-templates section" id="modelos">
+          <div className="container remote-templates-layout">
+            <div className="remote-section-heading">
+              <p className="remote-eyebrow">Emissões recorrentes</p>
+              <h2>Preencheu uma vez. A nota do mês seguinte sai em segundos.</h2>
+              <p>Se você fatura o mesmo cliente todo mês, não precisa refazer o mesmo formulário. O Invio guarda os dados da emissão como um modelo: você abre, confere o que mudou e emite.</p>
+              <div className="remote-saved-list">
+                {savedData.map((item) => (
+                  <article key={item.title}>
+                    <span><Icon name={item.icon} size={20} /></span>
+                    <div><h3>{item.title}</h3><p>{item.text}</p></div>
+                  </article>
+                ))}
+              </div>
+              <SignupCta location="templates">Criar conta grátis <Icon name="arrow" size={17} /></SignupCta>
+            </div>
+
+            <div className="remote-templates-visual" role="img" aria-label="Visualização ilustrativa: um modelo salvo é reaproveitado e abre a nova NFS-e já preenchida, com apenas o valor do mês a revisar">
+              <div className="remote-templates-card">
+                <div className="remote-templates-card-head"><span><Icon name="layers" size={16} /> Modelos salvos</span><small>3</small></div>
+                <div className="remote-templates-rows">
+                  <div className="is-selected">
+                    <b>Northstar LLC</b>
+                    <small>Desenvolvimento de software · Estados Unidos</small>
+                    <button type="button" tabIndex={-1}>Usar modelo</button>
+                  </div>
+                  <div>
+                    <b>Bright Labs Inc</b>
+                    <small>Consultoria técnica · Estados Unidos</small>
+                    <button type="button" tabIndex={-1}>Usar modelo</button>
+                  </div>
+                  <div>
+                    <b>Vantis GmbH</b>
+                    <small>Design de produto · Alemanha</small>
+                    <button type="button" tabIndex={-1}>Usar modelo</button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="remote-templates-arrow"><i /><Icon name="arrow" size={17} /><i /></div>
+
+              <div className="remote-templates-card remote-templates-form">
+                <div className="remote-templates-card-head"><span><Icon name="document" size={16} /> Nova NFS-e</span><small className="is-prefilled">Preenchida pelo modelo</small></div>
+                <div className="remote-templates-fields">
+                  <label>Tomador<strong>Northstar LLC <i><Icon name="check" size={13} /></i></strong></label>
+                  <label>País<strong>Estados Unidos <i><Icon name="check" size={13} /></i></strong></label>
+                  <label>Serviço<strong>Desenvolvimento de software <i><Icon name="check" size={13} /></i></strong></label>
+                  <label className="is-editable">Valor do mês<strong>R$ 18.400,00 <em>revisar</em></strong></label>
+                </div>
+                <div className="remote-templates-form-footer"><Icon name="check" size={15} /> Pronta para emitir</div>
+              </div>
             </div>
           </div>
         </section>

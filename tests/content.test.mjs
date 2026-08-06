@@ -316,7 +316,7 @@ test("lookup data matches the volumes the pages claim", async () => {
   ]);
 
   const entries = (source) => (source.match(/\{ code: /g) || []).length;
-  const municipalityRows = municipalities.slice(municipalities.indexOf("const RAW = `")).split("\n").length - 1;
+  const municipalityRows = (municipalities.match(/\b\d{7}\|[^|\n]+\|[A-Z]{2}\b/g) || []).length;
 
   assert.equal(entries(lc116), 199);
   assert.equal(entries(nbs), 920);
