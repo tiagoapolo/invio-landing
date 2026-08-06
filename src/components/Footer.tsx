@@ -36,6 +36,12 @@ export function Footer({ remote = false }: { remote?: boolean }) {
           <a href={remote ? appUrl : `${appUrl}/login`}>Entrar no app</a>
           {remote && <a href={whatsappUrl}>Fale com a Invio</a>}
         </div>
+        <div className="footer-column">
+          <strong>Consultas gratuitas</strong>
+          <a href="/consulta/lc116">Tabela LC 116/2003</a>
+          <a href="/consulta/nbs">Tabela NBS</a>
+          <a href="/consulta/codigo-municipio">Código IBGE de município</a>
+        </div>
       </div>
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} Invio.</span>

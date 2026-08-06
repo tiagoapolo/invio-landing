@@ -12,9 +12,11 @@ export function initializeAnalytics() {
   const analyticsWindow = window as AnalyticsWindow;
 
   analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
-  analyticsWindow.gtag = analyticsWindow.gtag || ((...args: unknown[]) => {
-    analyticsWindow.dataLayer?.push(args);
-  });
+  // O gtag.js só interpreta entradas do dataLayer que sejam o objeto `arguments`.
+  // Empurrar um array comum faz os comandos serem descartados silenciosamente.
+  analyticsWindow.gtag = analyticsWindow.gtag || function gtag() {
+    analyticsWindow.dataLayer?.push(arguments);
+  };
 
   analyticsWindow.gtag("js", new Date());
   analyticsWindow.gtag("config", measurementId, { send_page_view: false });

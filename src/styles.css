@@ -2470,8 +2470,8 @@ nav a:focus-visible {
 
 .footer-main {
   display: grid;
-  grid-template-columns: 1.6fr 0.7fr 0.8fr;
-  gap: 70px;
+  grid-template-columns: 1.4fr 0.7fr 0.8fr 0.9fr;
+  gap: 56px;
   padding-block: 68px;
 }
 
@@ -3560,4 +3560,97 @@ nav a:focus-visible {
   .remote-product-body { grid-template-columns: 1fr; }
   .remote-product-body > aside { display: none; }
   .remote-product-float { min-width: 220px; }
+}
+
+/* Consultas públicas — /consulta/lc116, /consulta/nbs, /consulta/codigo-municipio */
+
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; border: 0; clip-path: inset(50%); white-space: nowrap; }
+
+.consulta-page { background: var(--paper); }
+.consulta-hero { padding-block: 60px 44px; border-bottom: 1px solid var(--line); background: linear-gradient(180deg, var(--canvas-blue), var(--paper)); }
+.consulta-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; color: var(--muted); font-size: 13px; }
+.consulta-breadcrumb a:hover { color: var(--primary-dark); }
+.consulta-breadcrumb strong { color: var(--ink-soft); font-weight: 650; }
+.consulta-breadcrumb span[aria-hidden] { color: var(--muted-light); }
+.consulta-hero h1 { margin: 14px 0 0; max-width: 20ch; font-size: 46px; letter-spacing: -0.03em; line-height: 1.08; }
+.consulta-lead { margin: 18px 0 0; max-width: 72ch; color: var(--muted); font-size: 17px; line-height: 1.62; }
+.consulta-facts { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 0; }
+.consulta-facts > div { padding: 13px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+.consulta-facts dt { color: var(--muted); font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; }
+.consulta-facts dd { margin: 6px 0 0; color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+.consulta-facts code { color: var(--primary-dark); font-family: var(--font-mono); font-size: 13px; }
+.consulta-facts a { border-bottom: 1px solid var(--line); }
+.consulta-facts a:hover { color: var(--primary-dark); border-color: var(--primary); }
+
+.consulta-tool-section { padding-block: 44px 56px; }
+.consulta-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+.consulta-search { flex: 1 1 320px; }
+.consulta-search input { width: 100%; padding: 15px 18px; color: var(--ink); border: 1px solid var(--line); border-radius: 12px; background: var(--paper); font-size: 15px; }
+.consulta-search input:focus-visible { border-color: var(--primary); outline: 3px solid var(--primary-soft); outline-offset: 0; }
+.consulta-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.consulta-badges button { padding: 7px 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 8px; background: var(--paper); cursor: pointer; font-size: 12px; font-weight: 620; }
+.consulta-badges button:hover { color: var(--ink-soft); border-color: var(--muted-light); }
+.consulta-badges button.is-active { color: white; border-color: var(--primary); background: var(--primary); }
+.consulta-count { margin: 18px 0 0; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.consulta-empty { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
+.consulta-empty strong { color: var(--ink-soft); }
+
+.consulta-table-wrap { margin-top: 14px; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+.consulta-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.consulta-table thead th { position: sticky; top: 75px; z-index: 1; padding: 12px 18px; color: var(--muted); border-bottom: 1px solid var(--line); background: var(--canvas); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-align: left; text-transform: uppercase; }
+.consulta-table tbody tr { border-bottom: 1px solid var(--line); content-visibility: auto; contain-intrinsic-size: auto 49px; }
+.consulta-table tbody tr:last-child { border-bottom: 0; }
+.consulta-table tbody tr:hover { background: var(--canvas); }
+.consulta-table td { padding: 9px 18px; color: var(--ink-soft); line-height: 1.5; vertical-align: top; }
+.consulta-table td:first-child { width: 1%; white-space: nowrap; }
+.consulta-badge-cell { width: 1%; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.consulta-code { display: inline-flex; align-items: center; gap: 9px; padding: 4px 8px; color: var(--primary-dark); border: 1px solid transparent; border-radius: 7px; background: transparent; cursor: pointer; }
+.consulta-code code { font-family: var(--font-mono); font-size: 13px; font-weight: 650; }
+.consulta-code > span { color: var(--muted-light); font-size: 10px; letter-spacing: 0.06em; opacity: 0; text-transform: uppercase; transition: opacity 0.14s ease; }
+.consulta-code:hover { border-color: #d5d5f2; background: #f7f7ff; }
+.consulta-code:hover > span,
+.consulta-code:focus-visible > span,
+.consulta-code.is-copied > span { opacity: 1; }
+.consulta-code.is-copied { border-color: #bfe3d3; background: var(--green-soft); }
+.consulta-code.is-copied > span { color: var(--green); }
+.consulta-note { margin: 20px 0 0; max-width: 78ch; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+.consulta-usage { padding-block: 62px; border-block: 1px solid var(--line); background: var(--canvas); }
+.consulta-usage-layout { display: grid; align-items: center; grid-template-columns: 1fr 1fr; gap: 52px; }
+.consulta-usage h2 { margin: 8px 0 0; font-size: 30px; letter-spacing: -0.02em; }
+.consulta-usage p { margin: 16px 0 22px; color: var(--muted); font-size: 15px; line-height: 1.65; }
+
+.consulta-related { padding-block: 62px; }
+.consulta-related h2 { margin: 0 0 26px; font-size: 26px; letter-spacing: -0.02em; }
+.consulta-related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.consulta-related-grid a { display: block; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); transition: border-color 0.16s ease, transform 0.16s ease; }
+.consulta-related-grid a:hover { border-color: var(--primary); transform: translateY(-2px); }
+.consulta-related-grid strong { display: block; font-size: 17px; }
+.consulta-related-grid span { display: inline-block; margin-top: 7px; padding: 3px 8px; color: var(--primary-dark); border-radius: 5px; background: var(--primary-soft); font-family: var(--font-mono); font-size: 11px; }
+.consulta-related-grid p { margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.58; }
+
+.consulta-cta { padding-block: 62px; border-top: 1px solid var(--line); background: var(--canvas-blue); }
+.consulta-cta-inner { display: grid; align-items: center; grid-template-columns: 1.4fr 0.9fr; gap: 44px; }
+.consulta-cta h2 { margin: 0; font-size: 28px; letter-spacing: -0.02em; }
+.consulta-cta p { margin: 14px 0 0; color: var(--muted); font-size: 15px; line-height: 1.62; }
+.consulta-cta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.consulta-disclaimer { padding-block: 30px 46px; color: var(--muted-light); font-size: 12px; line-height: 1.6; }
+
+@media (max-width: 920px) {
+  .consulta-hero h1 { font-size: 38px; }
+  .consulta-usage-layout,
+  .consulta-cta-inner { grid-template-columns: 1fr; gap: 32px; }
+  .consulta-related-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  .consulta-hero { padding-block: 44px 36px; }
+  .consulta-hero h1 { font-size: 31px; }
+  .consulta-lead { font-size: 16px; }
+  .consulta-facts > div { flex: 1 1 100%; }
+  .consulta-table { font-size: 13px; }
+  .consulta-table thead th,
+  .consulta-table td { padding-inline: 12px; }
+  .consulta-code > span { display: none; }
 }

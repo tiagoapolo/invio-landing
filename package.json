@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:municipalities": "node scripts/build-municipalities.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b --pretty false",
     "test": "node --test tests/*.test.mjs"

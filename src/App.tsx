@@ -1,9 +1,28 @@
 import { useEffect } from "react";
 import { trackPageView } from "./analytics";
+import type { ConsultaSlug } from "./data/consulta";
+import { CONSULTA_DATASETS, parseEntryCode } from "./data/consulta";
 import { HomePage } from "./pages/HomePage";
 import { MigrationPage } from "./pages/MigrationPage";
 import { RemotePage } from "./pages/RemotePage";
 import { ApiDocsPage } from "./pages/ApiDocsPage";
+import { ConsultaPage } from "./pages/ConsultaPage";
+
+/**
+ * `/consulta/<tabela>` e, quando as páginas por código existirem,
+ * `/consulta/<tabela>/<codigo>-<slug>`. Enquanto elas não existem, um código na
+ * URL abre a tabela já filtrada, sem URL quebrada e sem canonical duplicado.
+ */
+function matchConsulta(path: string) {
+  const segments = path.split("/").filter(Boolean);
+  if (segments[0] !== "consulta") return null;
+
+  const slug = segments[1] as ConsultaSlug | undefined;
+  const dataset = slug && Object.hasOwn(CONSULTA_DATASETS, slug) ? CONSULTA_DATASETS[slug] : null;
+  if (!dataset) return null;
+
+  return { dataset, code: segments[2] ? parseEntryCode(segments[2]) : "" };
+}
 
 function setMeta(attribute: "name" | "property", key: string, content: string) {
   const selector = `meta[${attribute}="${key}"]`;
@@ -25,9 +44,19 @@ export function App() {
   const isMigration = path === "/migrar-da-nuvem-fiscal";
   const isRemote = path === "/remote";
   const isApiDocs = path === "/api";
+  const consulta = matchConsulta(path);
 
   useEffect(() => {
-    const metadata = isApiDocs
+    const metadata = consulta
+      ? {
+          title: consulta.dataset.title,
+          description: consulta.dataset.description,
+          url: `https://useinvio.com/consulta/${consulta.dataset.slug}`,
+          image: "",
+          imageAlt: "",
+          twitterCard: "summary",
+        }
+      : isApiDocs
       ? {
           title: "Documentação da API | Invio",
           description: "Referência segura da API Invio: autenticação, endpoints de leitura e exemplos executáveis sem alterar dados fiscais.",
@@ -78,7 +107,11 @@ export function App() {
     setMeta("name", "twitter:image", metadata.image);
     document.querySelector('link[rel="canonical"]')?.setAttribute("href", metadata.url);
     trackPageView(metadata.title);
-  }, [isApiDocs, isMigration, isRemote]);
+  }, [consulta?.dataset.slug, isApiDocs, isMigration, isRemote]);
+
+  if (consulta) {
+    return <ConsultaPage dataset={consulta.dataset} code={consulta.code} />;
+  }
 
   if (isApiDocs) {
     return <ApiDocsPage />;

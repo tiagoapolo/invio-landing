@@ -13,6 +13,11 @@ export default defineConfig({
         ),
         remote: fileURLToPath(new URL("./remote/index.html", import.meta.url)),
         api: fileURLToPath(new URL("./api/index.html", import.meta.url)),
+        consultaLc116: fileURLToPath(new URL("./consulta/lc116/index.html", import.meta.url)),
+        consultaNbs: fileURLToPath(new URL("./consulta/nbs/index.html", import.meta.url)),
+        consultaMunicipio: fileURLToPath(
+          new URL("./consulta/codigo-municipio/index.html", import.meta.url),
+        ),
       },
     },
   },
