@@ -28,6 +28,26 @@ test("homepage has the approved positioning and SEO metadata", async () => {
   assert.doesNotMatch(page, /SLA de|99,9%|clientes atendidos|notas processadas/);
 });
 
+test("API documentation has a dedicated safe-read route", async () => {
+  const [app, header, footer, docs] = await Promise.all([
+    read("../src/App.tsx"),
+    read("../src/components/Header.tsx"),
+    read("../src/components/Footer.tsx"),
+    read("../src/pages/ApiDocsPage.tsx"),
+  ]);
+
+  assert.match(app, /path === "\/api"/);
+  assert.match(app, /<ApiDocsPage/);
+  assert.match(header, /href="\/api"[^>]*>Documentação/);
+  assert.match(footer, /href="\/api"[^>]*>Documentação da API/);
+  assert.match(docs, /\/v1\/emitters/);
+  assert.match(docs, /\/v1\/emissions/);
+  assert.match(docs, /\/v1\/webhooks/);
+  assert.match(docs, /não criam, alteram, cancelam ou transmitem/);
+  assert.doesNotMatch(docs, /Prompt para GPT de suporte/);
+  assert.doesNotMatch(docs, /curl[^`]*POST \/v1\/emissions/);
+});
+
 test("migration page keeps factual, non-affiliated positioning", async () => {
   const [html, page] = await Promise.all([
     read("../migrar-da-nuvem-fiscal/index.html"),
@@ -222,6 +242,7 @@ test("AI discovery files expose factual product context", async () => {
   assert.match(summary, /https:\/\/useinvio\.com\/llms-full\.txt/);
   assert.match(summary, /does not replace accounting advice/i);
   assert.match(full, /X-Invio-Signature/);
+  assert.match(full, /https:\/\/useinvio\.com\/api/);
   assert.match(full, /Invio is not affiliated with Nuvem Fiscal/);
   assert.match(full, /Up to 2 NFS-e per month/);
   assert.match(robots, /User-agent: GPTBot\nAllow: \//);

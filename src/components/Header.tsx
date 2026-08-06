@@ -43,6 +43,7 @@ export function Header({ migration = false, remote = false }: { migration?: bool
               <a href={`${prefix}#produto`} onClick={close}>Produto</a>
               <a href={`${prefix}#como-funciona`} onClick={close}>Como funciona</a>
               <a href={`${prefix}#para-quem`} onClick={close}>Para quem</a>
+              <a href="/api" onClick={close}>Documentação</a>
               <a href="#montar-plano" onClick={close}>Planos</a>
               <a href="/remote" onClick={close}>Remote</a>
               <a href="/migrar-da-nuvem-fiscal" onClick={close}>Migração</a>

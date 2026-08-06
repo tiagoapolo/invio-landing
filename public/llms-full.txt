@@ -23,6 +23,14 @@ The core flow is: configure issuers, service profiles, and A1 digital certificat
 - Operational dashboard with emission status, event timeline, errors, queries, and XML access.
 - API key creation and revocation through the dashboard.
 
+## API documentation
+
+Canonical URL: https://useinvio.com/api
+
+The public documentation provides executable `curl` examples only for read-only endpoints. They require an API URL and API key supplied to the organization, use environment variables instead of real credentials, and do not create, update, cancel, transmit, or query the national tax system. Authenticated requests update only the API key's last-use timestamp.
+
+Operations that create or change issuers, service profiles, certificates, webhooks, API keys, emissions, or fiscal events are listed with their impact but intentionally have no copy-and-run commands in the public documentation.
+
 Invio focuses on NFS-e Nacional. It is not represented as a solution for every type of Brazilian fiscal document.
 
 ## Intended customers
@@ -118,6 +126,7 @@ Invio does not promise automatic API compatibility or a generic migration timeli
 ## Official URLs
 
 - Main website: https://useinvio.com/
+- API documentation: https://useinvio.com/api
 - Invio Remote: https://useinvio.com/remote
 - Assisted migration: https://useinvio.com/migrar-da-nuvem-fiscal
 - Application: https://app.useinvio.com/

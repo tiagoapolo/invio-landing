@@ -3,6 +3,7 @@ import { trackPageView } from "./analytics";
 import { HomePage } from "./pages/HomePage";
 import { MigrationPage } from "./pages/MigrationPage";
 import { RemotePage } from "./pages/RemotePage";
+import { ApiDocsPage } from "./pages/ApiDocsPage";
 
 function setMeta(attribute: "name" | "property", key: string, content: string) {
   const selector = `meta[${attribute}="${key}"]`;
@@ -23,9 +24,19 @@ export function App() {
   const path = window.location.pathname.replace(/\/$/, "") || "/";
   const isMigration = path === "/migrar-da-nuvem-fiscal";
   const isRemote = path === "/remote";
+  const isApiDocs = path === "/api";
 
   useEffect(() => {
-    const metadata = isRemote
+    const metadata = isApiDocs
+      ? {
+          title: "Documentação da API | Invio",
+          description: "Referência segura da API Invio: autenticação, endpoints de leitura e exemplos executáveis sem alterar dados fiscais.",
+          url: "https://useinvio.com/api",
+          image: "",
+          imageAlt: "",
+          twitterCard: "summary",
+        }
+      : isRemote
       ? {
           title: "Como emitir nota fiscal para cliente do exterior | Invio",
           description: "Emita e acompanhe NFS-e para clientes no exterior. Plano grátis com até 2 notas por mês, 1 emitente e certificado A1.",
@@ -67,7 +78,11 @@ export function App() {
     setMeta("name", "twitter:image", metadata.image);
     document.querySelector('link[rel="canonical"]')?.setAttribute("href", metadata.url);
     trackPageView(metadata.title);
-  }, [isMigration, isRemote]);
+  }, [isApiDocs, isMigration, isRemote]);
+
+  if (isApiDocs) {
+    return <ApiDocsPage />;
+  }
 
   if (isRemote) {
     return <RemotePage />;

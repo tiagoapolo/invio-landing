@@ -23,6 +23,7 @@ export function Footer({ remote = false }: { remote?: boolean }) {
             <>
               <a href="/#produto">Recursos</a>
               <a href="/#como-funciona">Como funciona</a>
+              <a href="/api">Documentação da API</a>
               <a href="/#montar-plano">Montar meu plano</a>
             </>
           )}

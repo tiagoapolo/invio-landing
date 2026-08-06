@@ -12,6 +12,7 @@ export default defineConfig({
           new URL("./migrar-da-nuvem-fiscal/index.html", import.meta.url),
         ),
         remote: fileURLToPath(new URL("./remote/index.html", import.meta.url)),
+        api: fileURLToPath(new URL("./api/index.html", import.meta.url)),
       },
     },
   },
