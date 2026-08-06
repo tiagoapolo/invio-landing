@@ -28,12 +28,13 @@ test("homepage has the approved positioning and SEO metadata", async () => {
   assert.doesNotMatch(page, /SLA de|99,9%|clientes atendidos|notas processadas/);
 });
 
-test("API documentation has a dedicated safe-read route", async () => {
-  const [app, header, footer, docs] = await Promise.all([
+test("API documentation is complete, navigable and safe by default", async () => {
+  const [app, header, footer, docs, codeBlock] = await Promise.all([
     read("../src/App.tsx"),
     read("../src/components/Header.tsx"),
     read("../src/components/Footer.tsx"),
     read("../src/pages/ApiDocsPage.tsx"),
+    read("../src/components/api-docs/ApiCodeBlock.tsx"),
   ]);
 
   assert.match(app, /path === "\/api"/);
@@ -44,6 +45,18 @@ test("API documentation has a dedicated safe-read route", async () => {
   assert.match(docs, /\/v1\/emissions/);
   assert.match(docs, /\/v1\/webhooks/);
   assert.match(docs, /não criam, alteram, cancelam ou transmitem/);
+  assert.match(docs, /api-docs-sidebar/);
+  assert.match(docs, /id="autenticacao"/);
+  assert.match(docs, /id="paginacao"/);
+  assert.match(docs, /id="estados"/);
+  assert.match(docs, /id="erros"/);
+  assert.match(docs, /id="webhooks"/);
+  assert.match(docs, /X-Invio-Signature/);
+  assert.match(docs, /queued/);
+  assert.match(docs, /authorized/);
+  assert.match(docs, /retryAfter/);
+  assert.match(codeBlock, /navigator\.clipboard\.writeText/);
+  assert.match(codeBlock, /Copiar/);
   assert.doesNotMatch(docs, /Prompt para GPT de suporte/);
   assert.doesNotMatch(docs, /curl[^`]*POST \/v1\/emissions/);
 });
