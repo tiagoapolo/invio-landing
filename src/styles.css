@@ -300,6 +300,10 @@ nav a:focus-visible {
   margin-left: auto;
 }
 
+.nav-wrap nav a {
+  white-space: nowrap;
+}
+
 .nav-wrap nav a,
 .login-link {
   position: relative;
@@ -3572,6 +3576,13 @@ nav a:focus-visible {
 .consulta-breadcrumb a:hover { color: var(--primary-dark); }
 .consulta-breadcrumb strong { color: var(--ink-soft); font-weight: 650; }
 .consulta-breadcrumb span[aria-hidden] { color: var(--muted-light); }
+.consulta-switch { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+.consulta-switch a { display: flex; align-items: baseline; gap: 9px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); transition: border-color 0.16s ease, color 0.16s ease; }
+.consulta-switch a:hover { border-color: var(--primary); }
+.consulta-switch strong { font-size: 14px; font-weight: 650; }
+.consulta-switch span { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+.consulta-switch a.is-current { color: white; border-color: var(--primary); background: var(--primary); }
+.consulta-switch a.is-current span { color: rgba(255, 255, 255, 0.72); }
 .consulta-hero h1 { margin: 14px 0 0; max-width: 20ch; font-size: 46px; letter-spacing: -0.03em; line-height: 1.08; }
 .consulta-lead { margin: 18px 0 0; max-width: 72ch; color: var(--muted); font-size: 17px; line-height: 1.62; }
 .consulta-facts { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 0; }
@@ -3595,9 +3606,13 @@ nav a:focus-visible {
 .consulta-empty { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
 .consulta-empty strong { color: var(--ink-soft); }
 
-.consulta-table-wrap { margin-top: 14px; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+/* Sem scroll container aqui: `overflow` criaria um scrollport próprio e o
+   cabeçalho grudento passaria a se posicionar por ele, sobrepondo as linhas. */
+.consulta-table-wrap { margin-top: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
 .consulta-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-.consulta-table thead th { position: sticky; top: 75px; z-index: 1; padding: 12px 18px; color: var(--muted); border-bottom: 1px solid var(--line); background: var(--canvas); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-align: left; text-transform: uppercase; }
+.consulta-table thead th { position: sticky; top: 74px; z-index: 2; padding: 12px 18px; color: var(--muted); background: var(--canvas); box-shadow: inset 0 -1px 0 var(--line); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-align: left; text-transform: uppercase; }
+.consulta-table thead th:first-child { border-top-left-radius: var(--radius); }
+.consulta-table thead th:last-child { border-top-right-radius: var(--radius); }
 .consulta-table tbody tr { border-bottom: 1px solid var(--line); content-visibility: auto; contain-intrinsic-size: auto 49px; }
 .consulta-table tbody tr:last-child { border-bottom: 0; }
 .consulta-table tbody tr:hover { background: var(--canvas); }

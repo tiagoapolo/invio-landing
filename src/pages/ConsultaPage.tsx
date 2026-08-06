@@ -16,9 +16,8 @@ const usageExample = `{
 }`;
 
 export function ConsultaPage({ dataset, code = "" }: { dataset: ConsultaDataset; code?: string }) {
-  const related = CONSULTA_SLUGS.filter((slug) => slug !== dataset.slug).map(
-    (slug) => CONSULTA_DATASETS[slug as ConsultaSlug],
-  );
+  const all = CONSULTA_SLUGS.map((slug) => CONSULTA_DATASETS[slug as ConsultaSlug]);
+  const related = all.filter((item) => item.slug !== dataset.slug);
 
   return (
     <>
@@ -33,6 +32,19 @@ export function ConsultaPage({ dataset, code = "" }: { dataset: ConsultaDataset;
               <span>Consultas</span>
               <span aria-hidden="true">/</span>
               <strong>{dataset.name}</strong>
+            </nav>
+            <nav className="consulta-switch" aria-label="Consultas gratuitas">
+              {all.map((item) => (
+                <a
+                  key={item.slug}
+                  href={`/consulta/${item.slug}`}
+                  className={item.slug === dataset.slug ? "is-current" : ""}
+                  aria-current={item.slug === dataset.slug ? "page" : undefined}
+                >
+                  <strong>{item.name}</strong>
+                  <span>{item.codeLabel}</span>
+                </a>
+              ))}
             </nav>
             <p className="eyebrow"><span /> Consulta pública e gratuita</p>
             <h1>{dataset.heading}</h1>

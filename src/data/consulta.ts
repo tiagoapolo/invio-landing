@@ -63,7 +63,7 @@ export const CONSULTA_DATASETS: Record<ConsultaSlug, ConsultaDataset> = {
       label: "Lei Complementar 116/2003",
       url: "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp116.htm",
     },
-    searchPlaceholder: "Busque por 1.05, 010501 ou “licenciamento de software”",
+    searchPlaceholder: "Busque por 1.05, 010501 ou “programas de computação”",
     load: async () => {
       const { LC116 } = await import("./lc116");
       return LC116.map((item) => ({ code: item.code, ...splitLc116(item.label) }));
@@ -87,7 +87,7 @@ export const CONSULTA_DATASETS: Record<ConsultaSlug, ConsultaDataset> = {
       label: "NBS — MDIC",
       url: "https://www.gov.br/mdic/pt-br/assuntos/sdic/comercio-e-servicos/nbs-nomenclatura-brasileira-de-servicos",
     },
-    searchPlaceholder: "Busque por 115011000 ou “desenvolvimento de software”",
+    searchPlaceholder: "Busque por 115011000 ou “programas de computador”",
     load: async () => {
       const { NBS } = await import("./nbs");
       return NBS.map((item) => ({ code: item.code, label: item.label }));
