@@ -2,6 +2,8 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { ApiCodeBlock } from "../components/api-docs/ApiCodeBlock";
 import { ApiEndpoint } from "../components/api-docs/ApiEndpoint";
+import { SdkTechnicalSection } from "../components/api-docs/SdkTechnicalSection";
+import { SefinTechnicalSection } from "../components/api-docs/SefinTechnicalSection";
 
 const navigation = [
   ["Visão geral", "#visao-geral"],
@@ -10,6 +12,8 @@ const navigation = [
   ["Emissões", "#emissoes"],
   ["Paginação", "#paginacao"],
   ["Estados", "#estados"],
+  ["SEFIN", "#sefin"],
+  ["SDK TypeScript", "#sdk"],
   ["Erros", "#erros"],
   ["Webhooks", "#webhooks"],
   ["Mapa de recursos", "#recursos"],
@@ -103,11 +107,20 @@ export function ApiDocsPage() {
               <h1>Integre a NFS-e com contexto, previsibilidade e segurança.</h1>
               <p>Da primeira consulta ao acompanhamento da emissão: contratos, estados, erros e webhooks explicados a partir do comportamento real da API.</p>
             </div>
-            <dl className="api-docs-facts">
-              <div><dt>Protocolo</dt><dd>REST · JSON</dd></div>
-              <div><dt>Autenticação</dt><dd>Bearer token</dd></div>
-              <div><dt>Ambientes</dt><dd>restrita · producao</dd></div>
-            </dl>
+            <div className="api-docs-hero-aside">
+              <dl className="api-docs-facts">
+                <div><dt>Protocolo</dt><dd>REST · JSON</dd></div>
+                <div><dt>Autenticação</dt><dd>Bearer token</dd></div>
+                <div><dt>Ambientes</dt><dd>restrita · producao</dd></div>
+              </dl>
+              <div className="api-docs-assistant">
+                <strong>Dúvidas sobre a documentação?</strong>
+                <p>Converse sobre endpoints, SEFIN, SDK e fluxos de integração.</p>
+                <a href="https://chatgpt.com/g/g-6a7492a961148191b0ae637b64f478d1-invio-api-assistente" target="_blank" rel="noreferrer">
+                  Fale com o Invio API Assistente <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -190,6 +203,10 @@ export function ApiDocsPage() {
               </div>
               <div className="api-callout api-callout-info"><strong>Estados finais</strong><p><code>authorized</code>, <code>rejected</code> e <code>error</code> encerram o processamento. <code>cancelled</code> acontece depois de uma autorização e de um evento fiscal aceito.</p></div>
             </section>
+
+            <SefinTechnicalSection />
+
+            <SdkTechnicalSection />
 
             <section className="api-docs-section" id="erros">
               <p className="api-section-kicker">Tratamento de falhas</p>

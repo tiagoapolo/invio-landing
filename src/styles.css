@@ -3336,6 +3336,12 @@ nav a:focus-visible {
 .api-docs-facts div { display: flex; justify-content: space-between; gap: 24px; padding: 14px 0; border-bottom: 1px solid #3c4259; }
 .api-docs-facts dt { color: #8f95a9; font-size: 13px; }
 .api-docs-facts dd { margin: 0; color: #f3f4ff; font-family: var(--font-mono); font-size: 12px; }
+.api-docs-assistant { margin-top: 20px; padding: 17px; border: 1px solid #3c4259; border-radius: 8px; background: #171c2f; }
+.api-docs-assistant strong { display: block; font-size: 13px; }
+.api-docs-assistant p { margin: 7px 0 14px; color: #aeb3c4; font-size: 12px; line-height: 1.5; }
+.api-docs-assistant a { display: inline-flex; align-items: center; gap: 7px; color: #b6b5ff; font-size: 12px; font-weight: 750; }
+.api-docs-assistant a:hover { color: white; }
+.api-docs-assistant a:focus-visible { outline: 2px solid #9d9cff; outline-offset: 4px; }
 .api-docs-shell { display: grid; grid-template-columns: 220px minmax(0, 820px); justify-content: space-between; align-items: start; gap: 88px; }
 .api-docs-sidebar { position: sticky; top: 98px; margin: 54px 0; padding-right: 28px; border-right: 1px solid var(--line); }
 .api-docs-sidebar > strong { display: block; margin-bottom: 13px; color: var(--ink); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; }
@@ -3422,6 +3428,40 @@ nav a:focus-visible {
 .api-resource-list article > code { color: var(--primary-dark); font-size: 12px; }
 .api-resource-list p { margin: 0; color: var(--muted); font-size: 13px; }
 .api-impact-list .api-endpoint { box-shadow: none; background: #fffaf2; }
+.api-sefin-pipeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 30px; padding: 1px; background: var(--line); }
+.api-sefin-pipeline > div { min-width: 0; min-height: 136px; padding: 16px 13px; background: var(--canvas); }
+.api-sefin-pipeline span { color: var(--primary-dark); font-family: var(--font-mono); font-size: 10px; }
+.api-sefin-pipeline strong { display: block; margin-top: 24px; font-size: 13px; }
+.api-sefin-pipeline p { margin: 6px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+.api-environment-table { margin-top: 12px; border-top: 1px solid var(--line); }
+.api-environment-table > div { display: grid; grid-template-columns: 100px 90px 1fr; gap: 18px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.api-environment-table strong { font-size: 13px; }
+.api-environment-table code { color: var(--primary-dark); font-size: 11px; }
+.api-environment-table p { min-width: 0; margin: 0; overflow-wrap: anywhere; color: var(--muted); font-family: var(--font-mono); font-size: 10px; }
+.api-protocol-table { margin-top: 12px; border-top: 1px solid var(--line); }
+.api-protocol-table > div { display: grid; grid-template-columns: 140px 190px 1fr; gap: 16px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.api-protocol-table span { font-size: 13px; font-weight: 650; }
+.api-protocol-table code { color: var(--primary-dark); font-size: 11px; }
+.api-protocol-table p { margin: 0; color: var(--muted); font-size: 12px; }
+.api-sefin-rules { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
+.api-sefin-rules article { padding: 17px; border: 1px solid var(--line); border-radius: 8px; background: var(--canvas); }
+.api-sefin-rules strong { font-size: 13px; }
+.api-sefin-rules p { margin: 7px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.api-sefin-errors strong { width: 56px; color: #8e3e49; }
+.api-sdk-boundary { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 28px; padding: 1px; background: var(--line); }
+.api-sdk-boundary > div { padding: 20px; background: white; }
+.api-sdk-boundary span { color: var(--primary-dark); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+.api-sdk-boundary p { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.58; }
+.api-sdk-entries { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 12px; padding: 1px; background: var(--line); }
+.api-sdk-entries > div { min-height: 100px; padding: 16px; background: var(--canvas); }
+.api-sdk-entries code { color: var(--primary-dark); font-size: 11px; font-weight: 750; }
+.api-sdk-entries p { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.api-invariant-list { display: grid; gap: 0; margin: 12px 0 0; padding: 0; border-top: 1px solid var(--line); list-style: none; }
+.api-invariant-list li { padding: 13px 0; color: var(--muted); border-bottom: 1px solid var(--line); font-size: 13px; line-height: 1.55; }
+.api-invariant-list strong { color: var(--ink-soft); }
+.api-sdk-pipeline { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.api-sdk-pipeline span { padding: 8px 9px; color: var(--primary-dark); border: 1px solid #d5d5f2; border-radius: 5px; background: #f7f7ff; font-family: var(--font-mono); font-size: 10px; }
+.api-sdk-pipeline i { color: #9398a7; font-size: 12px; font-style: normal; }
 
 @media (max-width: 1080px) {
   .remote-hero-layout { gap: 38px; }
@@ -3450,6 +3490,7 @@ nav a:focus-visible {
   .api-sidebar-note { display: none; }
   .api-docs-sidebar nav { display: flex; gap: 20px; width: max-content; }
   .api-docs-sidebar nav a { white-space: nowrap; }
+  .api-sefin-pipeline { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 700px) {
@@ -3491,6 +3532,7 @@ nav a:focus-visible {
   .footer-legal-links { align-items: flex-start; flex-direction: column; gap: 4px; }
   .api-docs-hero { padding-block: 64px 56px; }
   .api-docs-hero h1 { font-size: 39px; }
+  .api-docs-sidebar { margin-inline: -14px; padding-inline: 14px; }
   .api-docs-section { padding-block: 52px; }
   .api-docs-section > h2 { font-size: 32px; }
   .api-overview-steps,
@@ -3504,6 +3546,12 @@ nav a:focus-visible {
   .api-formula { align-items: flex-start; flex-direction: column; }
   .api-resource-list article { grid-template-columns: 1fr; }
   .api-resource-list article > div { grid-row: auto; }
+  .api-sefin-pipeline,
+  .api-sefin-rules,
+  .api-sdk-boundary,
+  .api-sdk-entries { grid-template-columns: 1fr; }
+  .api-environment-table > div,
+  .api-protocol-table > div { grid-template-columns: 1fr; gap: 6px; }
 }
 
 @media (max-width: 410px) {

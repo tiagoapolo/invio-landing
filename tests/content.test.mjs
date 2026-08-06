@@ -29,13 +29,16 @@ test("homepage has the approved positioning and SEO metadata", async () => {
 });
 
 test("API documentation is complete, navigable and safe by default", async () => {
-  const [app, header, footer, docs, codeBlock] = await Promise.all([
+  const [app, header, footer, docsPage, sefinDocs, sdkDocs, codeBlock] = await Promise.all([
     read("../src/App.tsx"),
     read("../src/components/Header.tsx"),
     read("../src/components/Footer.tsx"),
     read("../src/pages/ApiDocsPage.tsx"),
+    read("../src/components/api-docs/SefinTechnicalSection.tsx"),
+    read("../src/components/api-docs/SdkTechnicalSection.tsx"),
     read("../src/components/api-docs/ApiCodeBlock.tsx"),
   ]);
+  const docs = `${docsPage}\n${sefinDocs}\n${sdkDocs}`;
 
   assert.match(app, /path === "\/api"/);
   assert.match(app, /<ApiDocsPage/);
@@ -51,10 +54,21 @@ test("API documentation is complete, navigable and safe by default", async () =>
   assert.match(docs, /id="estados"/);
   assert.match(docs, /id="erros"/);
   assert.match(docs, /id="webhooks"/);
+  assert.match(docs, /id="sefin"/);
+  assert.match(docs, /id="sdk"/);
   assert.match(docs, /X-Invio-Signature/);
+  assert.match(docs, /XMLDSIG/);
+  assert.match(docs, /GZip/);
+  assert.match(docs, /mTLS/);
+  assert.match(docs, /layout 1\.01/);
+  assert.match(docs, /@useinvio\/nfse-sdk/);
+  assert.match(docs, /buildDpsFromJson/);
+  assert.match(docs, /EmitirNotaError/);
   assert.match(docs, /queued/);
   assert.match(docs, /authorized/);
   assert.match(docs, /retryAfter/);
+  assert.match(docs, /Fale com o Invio API Assistente/);
+  assert.match(docs, /https:\/\/chatgpt\.com\/g\/g-6a7492a961148191b0ae637b64f478d1-invio-api-assistente/);
   assert.match(codeBlock, /navigator\.clipboard\.writeText/);
   assert.match(codeBlock, /Copiar/);
   assert.doesNotMatch(docs, /Prompt para GPT de suporte/);
